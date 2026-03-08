@@ -25,8 +25,7 @@ async function main() {
   const minUrgency      = config.reddit.min_urgency_score ?? 15; 
   const minPostScore    = config.reddit.min_post_score ?? 10; 
  
-  console.log(`[copy-excavator] Mining ${subreddits.length} subreddits for 
-"${product.name}"`); 
+  console.log(`[copy-excavator] Mining ${subreddits.length} subreddits for "${product.name}"`); 
  
   // Fetch from configured subreddits (hot + rising for freshness) 
   const allPosts = await fetchSubreddits(subreddits, config.reddit.sorts ?? ['hot', 'rising'], 
@@ -100,8 +99,7 @@ config.reddit.limit_per_sub ?? 25);
   const week = getCurrentWeek(); 
   const lines = [ 
     `# Copy Ammunition — ${week}`, 
-    `_Mined: ${getTodayString()} from ${subreddits.length} subreddits + 
-${buyingSignals.length} keyword searches_`, 
+    `_Mined: ${getTodayString()} from ${subreddits.length} subreddits + ${buyingSignals.length} keyword searches_`, 
     `_High-value posts: ${highValue.length} of ${combined.length} total_`, 
     '', 
     '---', 
@@ -113,14 +111,12 @@ ${buyingSignals.length} keyword searches_`,
  
   if (tier1.length === 0) { 
     lines.push('_No Tier 1 quotes found this week._'); 
-    lines.push('_Action: expand `subreddits` in intelligence-config.json or lower 
-`min_buying_intent_score`_'); 
+    lines.push('_Action: expand `subreddits` in intelligence-config.json or lower `min_buying_intent_score`_'); 
     lines.push(''); 
   } else { 
     for (const q of tier1.slice(0, 12)) { 
       lines.push(`> "${q.sentence}"`); 
-      lines.push(`- **Score:** ${q.score}/10 &nbsp;|&nbsp; **r/${q.subreddit}** &nbsp;|&nbsp; 
-Post score: ${q.post_score}`); 
+      lines.push(`- **Score:** ${q.score}/10 &nbsp;|&nbsp; **r/${q.subreddit}** &nbsp;|&nbsp; Post score: ${q.post_score}`); 
       lines.push(`- **Intent:** ${q.buying_intent}/10 &nbsp;|&nbsp; [Source](${q.source})`); 
       lines.push(''); 
     } 
@@ -164,15 +160,12 @@ Post score: ${q.post_score}`);
   const outputPath = `${getIntelFolder()}/copy-ammunition.md`; 
   writeText(outputPath, lines.join('\n')); 
  
-  console.log(`[copy-excavator] Done. ${tier1.length} Tier 1 hooks, ${tier2.length} Tier 2 
-phrases written.`); 
+  console.log(`[copy-excavator] Done. ${tier1.length} Tier 1 hooks, ${tier2.length} Tier 2 phrases written.`); 
 } 
  
 function inferSentiment(text, compName) { 
-  const negativeContext = ['problem', 'issue', 'hate', 'broken', 'terrible', 'frustrated', 'worst', 
-'bad', 'slow', 'expensive']; 
-  const positiveContext = ['love', 'great', 'amazing', 'best', 'recommend', 'switched to', 'happy 
-with']; 
+  const negativeContext = ['problem', 'issue', 'hate', 'broken', 'terrible', 'frustrated', 'worst', 'bad', 'slow', 'expensive']; 
+  const positiveContext = ['love', 'great', 'amazing', 'best', 'recommend', 'switched to', 'happy with']; 
  
   const idx = text.indexOf(compName); 
   const window = text.slice(Math.max(0, idx - 100), idx + 150); 
@@ -185,7 +178,4 @@ with'];
   return 'neutral'; 
 } 
  
-main(); 
-``` 
- 
----
+main();
