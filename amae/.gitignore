@@ -1,0 +1,28 @@
+``` 
+# Environment 
+.env 
+.env.local 
+ 
+# Dependencies 
+node_modules/ 
+ 
+# OS 
+.DS_Store 
+Thumbs.db 
+ 
+# Generated media (committed via workflow, not local) 
+campaigns/*/assets/audio/ 
+campaigns/*/assets/images/ 
+campaigns/*/assets/video-jobs/ 
+ 
+# Logs 
+*.log 
+npm-debug.log* 
+ 
+# Editor 
+.vscode/ 
+.idea/ 
+*.swp 
+``` 
+ 
+---
