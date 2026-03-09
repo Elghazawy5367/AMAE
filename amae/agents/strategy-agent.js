@@ -3,14 +3,14 @@
 // Reads: intel-brief.md, synthesis-brief.md, product-dna.json 
 // Writes: campaigns/[WEEK]/strategy-brief.md 
 // Called by: .github/workflows/weekly-campaign.yml 
- 
+// 
 import { callModel, MODELS } from '../lib/openrouter.js'; 
 import { readJSON, readText, writeText, ensureDir } from '../lib/file-utils.js'; 
 import { getIntelFolder, getCampaignFolder, getTodayString, getCurrentWeek } from 
 '../lib/week-utils.js'; 
- 
-// ── The four expert personas 
-──────────────────────────────────────────────── 
+// 
+// -- The four expert personas 
+// ------------------------------------------------
 const PERSONAS = [ 
   { 
     id:     'ruthless_validator', 
@@ -55,24 +55,24 @@ keeps generating results after the week it was posted? What should be cut becaus
 requires effort disproportionate to its return?", 
   }, 
 ]; 
- 
+// 
 async function main() { 
   console.log('[strategy-agent] Starting 4-persona deliberation...'); 
- 
+// 
   const dna         = readJSON('config/product-dna.json'); 
   const campaignDir = getCampaignFolder(); 
   const intelDir    = getIntelFolder(); 
- 
+// 
   const intelBrief = readText(`${campaignDir}/intel-brief.md`); 
   const synthBrief = readText(`${intelDir}/synthesis-brief.md`); 
- 
+// 
   if (!dna) { 
     console.error('[strategy-agent] product-dna.json missing — aborting'); 
     process.exit(1); 
   } 
- 
+// 
   ensureDir(campaignDir); 
- 
+// 
   const product = dna.products[dna.active_product]; 
   const context = [ 
     `PRODUCT: ${product.name} — ${product.tagline}`, 
@@ -83,11 +83,11 @@ async function main() {
     'THIS WEEK\'S INTEL:', 
     (intelBrief || synthBrief || 'No intel available. Use product-dna.json the_desire  section.').slice(0, 2500),
   ].join('\n'); 
- 
-  // ── Run all 4 personas in parallel 
-───────────────────────────────────────── 
+// 
+  // -- Run all 4 personas in parallel 
+// -----------------------------------------
   console.log('[strategy-agent] Running 4 personas in parallel (Promise.all)...'); 
- 
+// 
   const personaResults = await Promise.all( 
     PERSONAS.map(async persona => { 
       console.log(`[strategy-agent] Calling: ${persona.id}`); 
@@ -108,28 +108,28 @@ async function main() {
       } 
     }) 
   ); 
- 
+// 
   const successfulPersonas = personaResults.filter(r => r.success); 
   console.log(`[strategy-agent] ${successfulPersonas.length}/4 personas completed. Running  synthesis...`);
- 
-  // ── Synthesis: Ruthless Judge pass 
-───────────────────────────────────────── 
+// 
+  // -- Synthesis: Ruthless Judge pass 
+// -----------------------------------------
   const allOpinions = personaResults 
     .map(r => `### ${r.id.replace(/_/g, ' ').toUpperCase()}\n${r.response}`) 
     .join('\n\n'); 
- 
+// 
   const synthPrompt = `Four expert personas evaluated this week's marketing strategy. 
- 
+// 
 ${allOpinions} 
- 
+// 
 PRODUCT CONTEXT: 
 ${context.slice(0, 800)} 
- 
+// 
 Your job — Ruthless Judge Pass: 
 1. Find where 2 or more personas AGREE — that is the high-confidence action. 
 2. Resolve conflicts by picking the most evidence-backed position. 
 3. Output a unified strategy brief in this exact format: 
- 
+// 
 **AGREED ANGLE:** (one sentence — the core message this week) 
 **HERO PLATFORM:** (one platform — where to put the most energy) 
 **HERO FORMAT:** (the specific content format for that platform) 
@@ -139,19 +139,19 @@ brief)
 **CUT THIS WEEK:** (one thing to deprioritize — lowest effort:return ratio) 
 **FUNNEL PRIORITY:** (TOFU / MOFU / BOFU — one word + one sentence why) 
 **CONFIDENCE:** (high / medium / low — how aligned were the personas?) 
- 
+// 
 Under 250 words. Specific, not generic.`; 
- 
+// 
   const synthesis = await callModel( 
     [{ role: 'user', content: synthPrompt }], 
     MODELS.REASONING, 
     1200, 
     0.4 
   ); 
- 
-  // ── Write output 
-─────────────────────────────────────────────────────────
-─── 
+// 
+  // -- Write output 
+// ---------------------------------------------------------
+// ---
   const output = [ 
     `# Strategy Brief — ${getCurrentWeek()}`, 
     `_Generated: ${getTodayString()}_`, 
@@ -165,9 +165,9 @@ Under 250 words. Specific, not generic.`;
     '## RAW PERSONA OUTPUTS', 
     allOpinions, 
   ].join('\n'); 
- 
+// 
   writeText(`${campaignDir}/strategy-brief.md`, output); 
   console.log('[strategy-agent] Done. strategy-brief.md written.'); 
 } 
- 
+// 
 main(); 

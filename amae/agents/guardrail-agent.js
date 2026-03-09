@@ -5,11 +5,11 @@ needed
 // Writes: campaigns/[WEEK]/text/*.md (in-place rewrites), 
 campaigns/[WEEK]/guardrail-log.md 
 // Called by: .github/workflows/weekly-campaign.yml (after content-factory) 
- 
+// 
 import { callModel, MODELS } from '../lib/openrouter.js'; 
 import { readJSON, readText, writeText, listFiles } from '../lib/file-utils.js'; 
 import { getCampaignFolder, getTodayString }        from '../lib/week-utils.js'; 
- 
+// 
 // Phrases that trigger a rewrite when found 
 const AI_TELL_PHRASES = [ 
   // Common AI openers 
@@ -27,7 +27,7 @@ const AI_TELL_PHRASES = [
   // AI meta-commentary 
   'as an ai', 'i cannot', 'i\'m an ai', 'as a language model', 
 ]; 
- 
+// 
 // Platform-specific rule violations 
 const PLATFORM_RULES = { 
   'linkedin-post.md': [  {
@@ -51,20 +51,20 @@ const PLATFORM_RULES = {
     }, 
   ], 
 }; 
- 
+// 
 const MAX_REWRITES = 2; // Never loop more than twice per file 
- 
+// 
 async function rewriteFile(content, issues, filePath) { 
   const issueList = issues.map(i => `- ${i.name}: ${i.fix}`).join('\n'); 
- 
+// 
   const prompt = `You are a quality editor for marketing content. 
- 
+// 
 ISSUES TO FIX: 
 ${issueList} 
- 
+// 
 CONTENT TO FIX: 
 ${content.slice(0, 3000)} 
- 
+// 
 INSTRUCTIONS: 
 1. Fix ONLY the flagged issues. Do not rewrite anything else. 
 2. If the issue is an AI-tell phrase: rewrite that sentence in plain human language that 
@@ -73,34 +73,34 @@ preserves the meaning.
 4. If the issue is a "I" opener: restructure that sentence only. 
 5. Do not add commentary, explanation, or preamble. 
 6. Output ONLY the corrected content.`; 
- 
+// 
   return callModel([{ role: 'user', content: prompt }], MODELS.CLASSIFIER, 2000, 0.3); 
 } 
- 
+// 
 async function main() { 
   console.log('[guardrail-agent] Starting quality gate...'); 
- 
+// 
   const campaignDir = getCampaignFolder(); 
   const dna         = readJSON('config/product-dna.json'); 
   const neverSay    = dna?.brand_voice?.never_say ?? []; 
- 
+// 
   // Combine built-in AI tells with product-specific never_say words 
   const allBanned = [ 
     ...AI_TELL_PHRASES, 
     ...neverSay.map(w => w.toLowerCase()), 
   ]; 
- 
+// 
   const files  = listFiles(`${campaignDir}/text`, '.md'); 
   const log    = [`# Guardrail Log — ${getTodayString()}`, '']; 
   let totalRewrites = 0; 
   let totalPassed   = 0; 
- 
+// 
   for (const filename of files) { 
     const filePath = `${campaignDir}/text/${filename}`; 
     let content    = readText(filePath); 
     const lower    = content.toLowerCase(); 
     const issues   = []; 
- 
+// 
     // Check AI tells 
     for (const phrase of allBanned) { 
       if (lower.includes(phrase.toLowerCase())) { 
@@ -111,7 +111,7 @@ async function main() {
         }); 
       } 
     } 
- 
+// 
     // Check platform-specific rules 
     const platformRules = PLATFORM_RULES[filename] ?? []; 
     for (const rule of platformRules) { 
@@ -119,27 +119,27 @@ async function main() {
         issues.push({ name: rule.name, fix: rule.fix }); 
       } 
     } 
- 
+// 
     if (issues.length === 0) { 
       log.push(`**PASS** ${filename} — no issues found`); 
       totalPassed++; 
       continue; 
     } 
- 
+// 
     const issueNames = issues.map(i => i.phrase ? `"${i.phrase}"` : i.name).join(', '); 
     log.push(`**REWRITE** ${filename} — issues: ${issueNames}`); 
- 
+// 
     // Attempt rewrites (max 2 passes) 
     let currentContent = content; 
     for (let pass = 1; pass <= MAX_REWRITES; pass++) { 
       console.log(`[guardrail-agent] Rewriting ${filename} (pass  ${pass}/${MAX_REWRITES})...`);
       try { 
         const fixed = await rewriteFile(currentContent, issues, filePath); 
- 
+// 
         // Verify the fix actually worked 
         const fixedLower  = fixed.toLowerCase(); 
         const stillBroken = allBanned.filter(p => fixedLower.includes(p)); 
- 
+// 
         if (stillBroken.length === 0 && platformRules.every(r => !r.test(fixed))) { 
           currentContent = fixed; 
           log.push(`  Pass ${pass}: FIXED`); 
@@ -156,11 +156,11 @@ async function main() {
         break; 
       } 
     } 
- 
+// 
     writeText(filePath, currentContent); 
     totalRewrites++; 
   } 
- 
+// 
   log.push(''); 
   log.push('---'); 
   log.push('## Summary'); 
@@ -169,9 +169,9 @@ async function main() {
   log.push(`| Files checked | ${files.length} |`); 
   log.push(`| Passed (no issues) | ${totalPassed} |`); 
   log.push(`| Rewrites applied | ${totalRewrites} |`); 
- 
+// 
   writeText(`${campaignDir}/guardrail-log.md`, log.join('\n')); 
   console.log(`[guardrail-agent] Done. ${totalPassed} passed, ${totalRewrites} rewritten.`); 
 } 
- 
+// 
 main(); 

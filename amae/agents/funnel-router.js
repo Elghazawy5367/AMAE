@@ -4,10 +4,10 @@ balance
 // Reads: campaigns/[WEEK]/text/*.md, config/posting-schedule.json 
 // Writes: campaigns/[WEEK]/funnel-map.json 
 // Called by: .github/workflows/weekly-campaign.yml 
- 
+// 
 import { readJSON, writeJSON, listFiles, readText } from '../lib/file-utils.js'; 
 import { getCampaignFolder, getTodayString }        from '../lib/week-utils.js'; 
- 
+// 
 // Platform-to-funnel mappings based on 2026 platform behavior 
 const PLATFORM_FUNNEL_MAP = { 
   'linkedin-post.md':       { stage: 'MOFU', goal: 'credibility_and_depth',    humanRequired:  false },
@@ -26,15 +26,15 @@ humanRequired: false },
   'threads-posts.md':       { stage: 'TOFU', goal: 'awareness',                humanRequired: false  },
   'community-seeds.md':     { stage: 'TOFU', goal: 'dark_social_seeding',      humanRequired:  true  },
 }; 
- 
+// 
 async function main() { 
   console.log('[funnel-router] Tagging campaign content...'); 
- 
+// 
   const campaignDir  = getCampaignFolder(); 
   const schedule     = readJSON('config/posting-schedule.json') ?? {}; 
   const targets      = schedule.funnel_targets ?? { TOFU_minimum_pct: 40, 
 MOFU_target_pct: 35 }; 
- 
+// 
   const files    = listFiles(`${campaignDir}/text`, '.md'); 
   const funnelMap = { 
     generated:    getTodayString(), 
@@ -44,11 +44,11 @@ MOFU_target_pct: 35 };
     warnings:     [], 
     human_required: [], 
   }; 
- 
+// 
   for (const filename of files) { 
     const rule       = PLATFORM_FUNNEL_MAP[filename] ?? { stage: 'TOFU', goal:  'awareness', humanRequired: false };
     const wordCount  = readText(`${campaignDir}/text/${filename}`).trim().split(/\s+/).length; 
- 
+// 
     funnelMap.pieces.push({ 
       file:          filename, 
       stage:         rule.stage, 
@@ -56,21 +56,21 @@ MOFU_target_pct: 35 };
       word_count:    wordCount, 
       human_required: rule.humanRequired, 
     }); 
- 
+// 
     funnelMap.distribution[rule.stage]++; 
- 
+// 
     if (rule.humanRequired) { 
       funnelMap.human_required.push(filename); 
     } 
   } 
- 
+// 
   // Check funnel balance 
   const total = funnelMap.pieces.length; 
   if (total > 0) { 
     const tofuPct = (funnelMap.distribution.TOFU / total) * 100; 
     const bofuCount = funnelMap.distribution.BOFU; 
     const tofuCount = funnelMap.distribution.TOFU; 
- 
+// 
     if (tofuPct < targets.TOFU_minimum_pct) { 
       funnelMap.warnings.push(`TOFU only ${Math.round(tofuPct)}% — below  ${targets.TOFU_minimum_pct}% minimum. Organic growth will stall.`);
     } 
@@ -81,16 +81,16 @@ MOFU_target_pct: 35 };
       funnelMap.warnings.push('No MOFU content this week — add at least one credibility  piece (LinkedIn depth post, Quora answer, or AEO article).');
     } 
   } 
- 
+// 
   writeJSON(`${campaignDir}/funnel-map.json`, funnelMap); 
   console.log(`[funnel-router] Done. TOFU:${funnelMap.distribution.TOFU} 
 MOFU:${funnelMap.distribution.MOFU} BOFU:${funnelMap.distribution.BOFU}. Warnings: 
 ${funnelMap.warnings.length}`); 
- 
+// 
   if (funnelMap.warnings.length > 0) { 
     console.log('[funnel-router] Funnel warnings:'); 
     funnelMap.warnings.forEach(w => console.log(`  - ${w}`)); 
   } 
 } 
- 
+// 
 main(); 

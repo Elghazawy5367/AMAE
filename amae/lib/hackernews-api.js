@@ -5,12 +5,12 @@
 // Reads: nothing 
 // Writes: nothing 
 // Called by: timing-scout.js 
- 
+// 
 import { scoreTrendVelocity, classifyTrend, scoreRelevance } from './scoring-algorithms.js'; 
- 
+// 
 const HN_ALGOLIA   = 'https://hn.algolia.com/api/v1'; 
 const HN_BASE      = 'https://news.ycombinator.com'; 
- 
+// 
 /** 
  * Fetch HN stories sorted by date with velocity scoring. 
  * Uses search_by_date to catch fresh stories before they peak. 
@@ -24,23 +24,23 @@ export async function fetchHNTrending(minPoints = 50, hitsPerPage = 30) {
 `${HN_ALGOLIA}/search_by_date?tags=story&numericFilters=points>${minPoints}&hitsPer Page=${hitsPerPage}`;
   console.log(`[hn-api] Fetching HN trending (minPoints=${minPoints}, 
 limit=${hitsPerPage})`); 
- 
+// 
   try { 
     const response = await fetch(url, { 
       headers: { 'Accept': 'application/json' }, 
     }); 
- 
+// 
     if (!response.ok) { 
       console.error(`[hn-api] HN Algolia returned ${response.status}`); 
       return []; 
     } 
- 
+// 
     const data = await response.json(); 
- 
+// 
     return (data.hits || []).map(item => { 
       const ageHours = (Date.now() - new Date(item.created_at).getTime()) / 3600000; 
       const velocity = scoreTrendVelocity(item.points || 0, ageHours); 
- 
+// 
       return { 
         id:          item.objectID, 
         title:       item.title || '', 
@@ -55,13 +55,13 @@ limit=${hitsPerPage})`);
         hn_url:      `${HN_BASE}/item?id=${item.objectID}`, 
       }; 
     }).sort((a, b) => b.velocity - a.velocity); 
- 
+// 
   } catch (err) { 
     console.error('[hn-api] Network error:', err.message); 
     return []; 
   } 
 } 
- 
+// 
 /** 
  * Filter HN items by keyword relevance to product category. 
  * Returns items with at least one keyword match, sorted by velocity. 
@@ -72,7 +72,7 @@ limit=${hitsPerPage})`);
  */ 
 export function filterByRelevance(items, keywords, threshold = 0) { 
   if (!keywords?.length) return items; 
- 
+// 
   return items 
     .map(item => ({ 
       ...item, 
@@ -81,7 +81,7 @@ export function filterByRelevance(items, keywords, threshold = 0) {
     .filter(item => item.relevance > threshold) 
     .sort((a, b) => b.velocity - a.velocity); 
 } 
- 
+// 
 /** 
  * Fetch HN Ask HN posts — community questions that reveal real pain points. 
  * These are high-value for copy ammunition. 
@@ -89,7 +89,7 @@ export function filterByRelevance(items, keywords, threshold = 0) {
 export async function fetchHNAskPosts(limit = 20) { 
   const url = `${HN_ALGOLIA}/search_by_date?tags=ask_hn&hitsPerPage=${limit}`; 
   console.log('[hn-api] Fetching Ask HN posts'); 
- 
+// 
   try { 
     const response = await fetch(url); 
     if (!response.ok) return []; 

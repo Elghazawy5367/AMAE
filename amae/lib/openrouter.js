@@ -9,11 +9,11 @@
 //   deepseek/deepseek-chat-v3-0324:free — fast, good quality, use for content generation 
 //   meta-llama/llama-3.3-70b-instruct:free — fast, good for guardrail/classification 
 //   google/gemini-2.0-flash-thinking-exp:free — good reasoning fallback 
- 
+// 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions'; 
 const MAX_RETRIES    = 3; 
 const RETRY_DELAY_MS = 2500; 
- 
+// 
 // Default model — best free reasoning model as of 2026-Q1 
 export const MODELS = { 
   REASONING:   'deepseek/deepseek-r1:free', 
@@ -21,7 +21,7 @@ export const MODELS = {
   CLASSIFIER:  'meta-llama/llama-3.3-70b-instruct:free', 
   FALLBACK:    'google/gemini-2.0-flash-thinking-exp:free', 
 }; 
- 
+// 
 /** 
  * Core API call function. All other exports are wrappers around this. 
  * 
@@ -38,11 +38,11 @@ export async function callModel(messages, model = MODELS.REASONING, maxTokens =
     console.error('[openrouter] OPENROUTER_API_KEY not set. Add it to GitHub Secrets or  .env');
     process.exit(1); 
   } 
- 
+// 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) { 
     try { 
       console.log(`[openrouter] ${model} — attempt ${attempt}/${MAX_RETRIES}`); 
- 
+// 
       const response = await fetch(OPENROUTER_URL, { 
         method:  'POST', 
         headers: { 
@@ -58,7 +58,7 @@ export async function callModel(messages, model = MODELS.REASONING, maxTokens =
           messages, 
         }), 
       }); 
- 
+// 
       // Retryable server errors 
       if (response.status === 429 || response.status >= 500) { 
         const wait = RETRY_DELAY_MS * attempt; 
@@ -66,16 +66,16 @@ export async function callModel(messages, model = MODELS.REASONING, maxTokens =
         await sleep(wait); 
         continue; 
       } 
- 
+// 
       // Non-retryable client errors 
       if (!response.ok) { 
         const body = await response.text(); 
         console.error(`[openrouter] API error ${response.status}: ${body}`); 
         process.exit(1); 
       } 
- 
+// 
       const data = await response.json(); 
- 
+// 
       // Handle malformed response 
       if (!data?.choices?.[0]?.message?.content) { 
         console.error('[openrouter] Unexpected response shape:', JSON.stringify(data).slice(0, 
@@ -83,9 +83,9 @@ export async function callModel(messages, model = MODELS.REASONING, maxTokens =
         if (attempt < MAX_RETRIES) { await sleep(RETRY_DELAY_MS); continue; } 
         process.exit(1); 
       } 
- 
+// 
       return data.choices[0].message.content; 
- 
+// 
     } catch (err) { 
       if (attempt === MAX_RETRIES) { 
         console.error(`[openrouter] All ${MAX_RETRIES} attempts failed:`, err.message); 
@@ -96,7 +96,7 @@ export async function callModel(messages, model = MODELS.REASONING, maxTokens =
     } 
   } 
 } 
- 
+// 
 /** 
  * Single user message — simplest usage 
  * @param {string} prompt 
@@ -106,7 +106,7 @@ export async function callModel(messages, model = MODELS.REASONING, maxTokens =
 export async function ask(prompt, model = MODELS.FAST, maxTokens = 2000) { 
   return callModel([{ role: 'user', content: prompt }], model, maxTokens); 
 } 
- 
+// 
 /** 
  * System + user message 
  * @param {string} systemPrompt 
@@ -125,7 +125,7 @@ maxTokens = 2000) {
     maxTokens 
   ); 
 } 
- 
+// 
 /** 
  * Parse JSON from model response. Handles markdown code fences. 
  * Throws if parsing fails after stripping fences. 
@@ -145,7 +145,7 @@ export function parseJSON(text) {
     throw new Error(`JSON parse failed: ${err.message}\nRaw text: ${text.slice(0, 200)}`); 
   } 
 } 
- 
+// 
 function sleep(ms) { 
   return new Promise(resolve => setTimeout(resolve, ms)); 
 } 

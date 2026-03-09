@@ -2,17 +2,17 @@
 // Job: Runway Gen-3 — image-to-video B-roll generation 
 // Standard plan: $12/month, 125 credits/month 
 // Requires: RUNWAY_API_KEY secret 
- 
+// 
 import { writeJSON } from './file-utils.js'; 
- 
+// 
 const RUNWAY_API = 'https://api.dev.runwayml.com/v1'; 
- 
+// 
 export async function submitImageToVideoJob(options) { 
   const apiKey = process.env.RUNWAY_API_KEY; 
   if (!apiKey) throw new Error('[runway-api.js] RUNWAY_API_KEY not set'); 
- 
+// 
   console.log(`[runway-api.js] Submitting B-roll: ${options.outputFilename}`); 
- 
+// 
   const response = await fetch(`${RUNWAY_API}/image_to_video`, {  method:  'POST',
     headers: { 
       'Authorization':  `Bearer ${apiKey}`, 
@@ -28,16 +28,16 @@ export async function submitImageToVideoJob(options) {
       watermark:     false, 
     }), 
   }); 
- 
+// 
   if (!response.ok) { 
     const err = await response.text(); 
     throw new Error(`[runway-api.js] API error ${response.status}: ${err.slice(0, 200)}`); 
   } 
- 
+// 
   const data = await response.json(); 
   return data?.id ?? null; 
 } 
- 
+// 
 export async function getJobStatus(jobId) { 
   const apiKey = process.env.RUNWAY_API_KEY; 
   const response = await fetch(`${RUNWAY_API}/tasks/${jobId}`, {  headers: { 'Authorization': `Bearer ${apiKey}`, 'X-Runway-Version': '2024-11-06' },
@@ -45,7 +45,7 @@ export async function getJobStatus(jobId) {
   if (!response.ok) return null; 
   return response.json(); 
 } 
- 
+// 
 export async function submitAllBrollJobs(specs, jobsFile = 
 'campaigns/current/assets/video-jobs/runway-jobs.json') { 
   const jobs = []; 

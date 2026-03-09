@@ -3,25 +3,25 @@
 // Reads: intelligence/weekly/synthesis-brief.md, memory/insights.json 
 // Writes: campaigns/[WEEK]/intel-brief.md 
 // Called by: .github/workflows/weekly-campaign.yml 
- 
+// 
 import { readText, readJSON, writeText, ensureDir } from '../lib/file-utils.js'; 
 import { getIntelFolder, getCampaignFolder, getTodayString, getCurrentWeek } from 
 '../lib/week-utils.js'; 
- 
+// 
 async function main() { 
   console.log('[intel-agent] Preparing intelligence context for campaign...'); 
- 
+// 
   const intelDir    = getIntelFolder(); 
   const campaignDir = getCampaignFolder(); 
   ensureDir(campaignDir); 
- 
+// 
   const synthBrief = readText(`${intelDir}/synthesis-brief.md`); 
   const copyAmmo   = readText(`${intelDir}/copy-ammunition.md`); 
   const timing     = readJSON(`${intelDir}/timing-windows.json`) ?? {}; 
   const insights   = readJSON('memory/insights.json') ?? {}; 
- 
+// 
   let briefContent; 
- 
+// 
   if (!synthBrief) { 
     console.log('[intel-agent] No synthesis brief found — this is Week 1 or Tuesday workflow  has not run yet.');
     briefContent = [ 
@@ -44,7 +44,7 @@ async function main() {
     const hookMatch = synthBrief.match(/\*\*\[HOOK\]\*\*:?\s*(.+)/i) ?? 
 synthBrief.match(/\[HOOK\][:]\s*(.+)/i); 
     const verbatimHook = hookMatch?.[1]?.trim() ?? null; 
- 
+// 
     briefContent = [ 
       `# Intel Brief — ${getCurrentWeek()}`, 
       `_Generated: ${getTodayString()}_`, 
@@ -61,9 +61,9 @@ synthBrief.match(/\[HOOK\][:]\s*(.+)/i);
       `**Funnel Warning:** ${insights.alert === 'desire_section_needs_revision' ? 'ALERT:  Desire section needs revision' : 'None'}`,
     ].join('\n'); 
   } 
- 
+// 
   writeText(`${campaignDir}/intel-brief.md`, briefContent); 
   console.log('[intel-agent] Intel brief written to campaign folder.'); 
 } 
- 
+// 
 main(); 

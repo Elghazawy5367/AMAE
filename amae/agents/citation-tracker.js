@@ -3,16 +3,16 @@
 // Reads: config/product-dna.json, memory/citations.json 
 // Writes: memory/citations.json 
 // Called by: .github/workflows/monthly-growth.yml 
- 
+// 
 import { callModel, MODELS } from '../lib/openrouter.js'; 
 import { readJSON, writeJSON } from '../lib/file-utils.js'; 
 import { getTodayString }       from '../lib/week-utils.js'; 
- 
+// 
 async function checkCitationSignals(productName, category) { 
   // Use web search via OpenRouter to check citation signals 
   // Note: Direct AI system checking requires manual verification 
   // This checks proxy signals: GitHub mentions, Reddit mentions, Quora answers 
- 
+// 
   const signals = { 
     date:        getTodayString(), 
     product:     productName, 
@@ -25,10 +25,10 @@ async function checkCitationSignals(productName, category) {
       `Check Google SGE: "${productName} review"`, 
     ], 
   }; 
- 
+// 
   return signals; 
 } 
- 
+// 
 async function checkGitHubMentions(productName) { 
   try { 
     const url      = 
@@ -48,29 +48,29 @@ async function checkGitHubMentions(productName) {
     return { count: 0, note: 'Search failed' }; 
   } 
 } 
- 
+// 
 async function main() { 
   console.log('[citation-tracker.js] Running monthly citation audit...'); 
- 
+// 
   const dna     = readJSON('config/product-dna.json'); 
   const product = dna?.products?.[dna?.active_product]; 
- 
+// 
   if (!product) { 
     console.error('[citation-tracker.js] No product config found.'); 
     process.exit(1); 
   } 
- 
+// 
   const existing = readJSON('memory/citations.json') ?? { history: [] }; 
   const signals  = await checkCitationSignals(product.name, product.category ?? ''); 
- 
+// 
   existing.last_checked = getTodayString(); 
   existing.history      = [signals, ...(existing.history ?? [])].slice(0, 12); // Keep 12 months 
- 
+// 
   writeJSON('memory/citations.json', existing); 
- 
+// 
   console.log('[citation-tracker.js] Citation signals recorded.'); 
   console.log('[citation-tracker.js] Manual checks needed:'); 
   signals.manual_check_reminder.forEach(r => console.log(`  - ${r}`)); 
 } 
- 
+// 
 main(); 

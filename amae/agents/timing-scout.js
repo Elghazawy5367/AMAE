@@ -3,47 +3,47 @@
 // Reads: config/product-dna.json, config/intelligence-config.json 
 // Writes: intelligence/weekly/timing-windows.json 
 // Called by: .github/workflows/weekly-intelligence.yml 
- 
+// 
 import { fetchHNTrending, filterByRelevance, fetchHNAskPosts } from 
 '../lib/hackernews-api.js'; 
 import { fetchSubreddit }         from '../lib/reddit-api.js'; 
 import { scoreTrendVelocity, classifyTrend } from '../lib/scoring-algorithms.js'; 
 import { readJSON, writeJSON }    from '../lib/file-utils.js'; 
 import { getIntelFolder, getTodayString, getCurrentWeek } from '../lib/week-utils.js'; 
- 
+// 
 async function main() { 
   console.log('[timing-scout] Starting trend velocity detection...'); 
- 
+// 
   const dna    = readJSON('config/product-dna.json'); 
   const config = readJSON('config/intelligence-config.json'); 
- 
+// 
   if (!dna || !config) { 
     console.error('[timing-scout] Cannot read config files — aborting'); 
     process.exit(1); 
   } 
- 
+// 
   const keywords   = config.hackernews.relevance_keywords ?? []; 
   const subreddits = config.reddit.subreddits ?? []; 
- 
-  // ── HN Trending 
-─────────────────────────────────────────────────────────
-──── 
+// 
+  // -- HN Trending 
+// ---------------------------------------------------------
+// ----
   console.log('[timing-scout] Fetching HN trending...'); 
   const allHN     = await fetchHNTrending(config.hackernews.min_points ?? 50, 
 config.hackernews.hits_per_page ?? 30); 
   const relevantHN = filterByRelevance(allHN, keywords); 
   console.log(`[timing-scout] HN: ${relevantHN.length} relevant of ${allHN.length} trending`); 
- 
-  // ── HN Ask Posts 
-─────────────────────────────────────────────────────────
-──── 
+// 
+  // -- HN Ask Posts 
+// ---------------------------------------------------------
+// ----
   console.log('[timing-scout] Fetching Ask HN...'); 
   const askPosts = await fetchHNAskPosts(15); 
   const relevantAsk = filterByRelevance(askPosts, keywords); 
- 
-  // ── Reddit Rising 
-─────────────────────────────────────────────────────────
-──── 
+// 
+  // -- Reddit Rising 
+// ---------------------------------------------------------
+// ----
   console.log('[timing-scout] Fetching Reddit rising...'); 
   const risingPosts = []; 
   for (const sub of subreddits.slice(0, 4)) { 
@@ -53,16 +53,16 @@ config.hackernews.hits_per_page ?? 30);
     risingPosts.push(...filtered); 
   } 
   console.log(`[timing-scout] Reddit rising: ${risingPosts.length} posts across  ${Math.min(subreddits.length, 4)} subreddits`);
- 
-  // ── Classify into buckets 
-───────────────────────────────────────────────────── 
+// 
+  // -- Classify into buckets 
+// -----------------------------------------------------
   const buckets = { 
     publish_now:       [], 
     prepare_next_week: [], 
     monitor:           [], 
     peaked_avoid:      [], 
   }; 
- 
+// 
   for (const item of relevantHN) { 
     buckets[item.trend_class]?.push({ 
       topic:           item.title, 
@@ -76,7 +76,7 @@ config.hackernews.hits_per_page ?? 30);
       content_angle:   deriveAngle(item.title, keywords), 
     }); 
   } 
- 
+// 
   for (const post of risingPosts) { 
     const velocity   = scoreTrendVelocity(post.score, post.age_hours); 
     const trendClass = classifyTrend(velocity); 
@@ -93,15 +93,15 @@ config.hackernews.hits_per_page ?? 30);
       }); 
     } 
   } 
- 
+// 
   // Sort each bucket by velocity 
   for (const bucket of Object.values(buckets)) { 
     bucket.sort((a, b) => b.velocity - a.velocity); 
   } 
- 
-  // ── Build output 
-─────────────────────────────────────────────────────────
-───── 
+// 
+  // -- Build output 
+// ---------------------------------------------------------
+// -----
   const output = { 
     generated:         getTodayString(), 
     week:              getCurrentWeek(), 
@@ -116,12 +116,12 @@ config.hackernews.hits_per_page ?? 30);
       top_velocity_topic:      buckets.publish_now[0]?.topic ?? 'None found', 
     }, 
   }; 
- 
+// 
   writeJSON(`${getIntelFolder()}/timing-windows.json`, output); 
   console.log(`[timing-scout] Done. ${buckets.publish_now.length} publish-now topics, 
 ${buckets.prepare_next_week.length} next-week topics.`); 
 } 
- 
+// 
 function deriveAngle(title, keywords) { 
   const lower = title.toLowerCase(); 
   for (const kw of keywords) { 
@@ -131,5 +131,5 @@ function deriveAngle(title, keywords) {
   } 
   return title.slice(0, 80); 
 } 
- 
+// 
 main(); 
