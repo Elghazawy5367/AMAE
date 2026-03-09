@@ -25,8 +25,7 @@ async function main() {
     .replace('[product.tagline]',               product.tagline ?? '') 
     .replace('[desire.what_they_secretly_want]', 
 product.the_desire?.what_they_secretly_want ?? '') 
-    .replace('[desire.what_they_fear_most]',     product.the_desire?.what_they_fear_most ?? 
-'') 
+    .replace('[desire.what_they_fear_most]',     product.the_desire?.what_they_fear_most ??  '')
     .replace('[desire.who_they_want_to_become]', 
 product.the_desire?.who_they_want_to_become ?? '') 
     .replace('[welcome | nurture | win-back — injected by email-sequence-agent.js]', 
@@ -37,16 +36,14 @@ sequenceType);
   const nurturePrompt   = buildPrompt('nurture'); 
   const nurtureResponse = await callModel([{ role: 'user', content: nurturePrompt }], 
 MODELS.FAST, 1500, 0.7); 
-  writeFile(`${outputDir}/nurture-week.md`, `# Nurture Email — 
-${week}\n\n${nurtureResponse}`); 
+  writeFile(`${outputDir}/nurture-week.md`, `# Nurture Email —  ${week}\n\n${nurtureResponse}`);
  
   // Win-back email every week (for cold subscribers) 
   console.log('[email-sequence-agent.js] Generating win-back email...'); 
   const winbackPrompt   = buildPrompt('win-back'); 
   const winbackResponse = await callModel([{ role: 'user', content: winbackPrompt }], 
 MODELS.FAST, 1000, 0.7); 
-  writeFile(`${outputDir}/win-back.md`, `# Win-Back Email — 
-${week}\n\n${winbackResponse}`); 
+  writeFile(`${outputDir}/win-back.md`, `# Win-Back Email —  ${week}\n\n${winbackResponse}`);
  
   // Welcome sequence only if this is a launch week 
   const isLaunchWeek = process.env.LAUNCH_MODE === 'true'; 
@@ -55,14 +52,10 @@ ${week}\n\n${winbackResponse}`);
     const welcomePrompt   = buildPrompt('welcome'); 
     const welcomeResponse = await callModel([{ role: 'user', content: welcomePrompt }], 
 MODELS.REASONING, 3000, 0.7); 
-    writeFile(`${outputDir}/welcome-sequence.md`, `# Welcome Sequence — 
-${week}\n\n${welcomeResponse}`); 
+    writeFile(`${outputDir}/welcome-sequence.md`, `# Welcome Sequence —  ${week}\n\n${welcomeResponse}`);
   } 
  
   console.log('[email-sequence-agent.js] Done. Email sequences written.'); 
 } 
  
 main(); 
-``` 
- 
----

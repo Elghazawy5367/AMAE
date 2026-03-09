@@ -7,8 +7,7 @@
 import { scoreBuyingIntent, scoreUrgency, extractBestQuotes } from './scoring-algorithms.js'; 
  
 const BASE_URL   = 'https://www.reddit.com'; 
-const USER_AGENT = 'AMAE/1.0 (autonomous-marketing-engine; contact: 
-your@email.com)'; 
+const USER_AGENT = 'AMAE/1.0 (autonomous-marketing-engine; contact:  your@email.com)';
  
 // Rate limiting — Reddit allows ~30 req/min without auth 
 const REQUEST_DELAY_MS = 1200; 
@@ -35,8 +34,7 @@ async function rateLimitedFetch(url) {
 /** 
  * Fetch posts from a subreddit. 
  * @param {string} sub    - subreddit name without r/ (e.g. 'sideproject') 
- * @param {string} sort   - 'hot' | 'new' | 'rising' | 'top' 
- * @param {number} limit  - number of posts (max 100) 
+ * @param {string} sort   - 'hot' | 'new' | 'rising' | 'top'  * @param {number} limit  - number of posts (max 100)
  * @returns {Array} scored post objects 
  */ 
 export async function fetchSubreddit(sub, sort = 'hot', limit = 25) { 
@@ -67,8 +65,7 @@ export async function fetchSubreddit(sub, sort = 'hot', limit = 25) {
     } 
  
     return data.data.children 
-      .filter(child => child.kind === 't3') // Posts only, not comments 
-      .map(child => scorePost(child.data)); 
+      .filter(child => child.kind === 't3') // Posts only, not comments  .map(child => scorePost(child.data));
  
   } catch (err) { 
     console.error(`[reddit-api] Network error on r/${sub}:`, err.message); 
@@ -110,8 +107,7 @@ export async function fetchSubreddits(subs, sorts = ['hot', 'rising'], limit = 2
 export async function searchReddit(query, limit = 25) { 
   const encoded = encodeURIComponent(query); 
   const url     = 
-`${BASE_URL}/search.json?q=${encoded}&sort=relevance&t=week&limit=${limit}&raw_json
-=1`; 
+`${BASE_URL}/search.json?q=${encoded}&sort=relevance&t=week&limit=${limit}&raw_json =1`;
   console.log(`[reddit-api] Searching: "${query}"`); 
  
   try { 
@@ -154,6 +150,3 @@ function scorePost(p) {
 function sleep(ms) { 
   return new Promise(resolve => setTimeout(resolve, ms)); 
 } 
-``` 
- 
----

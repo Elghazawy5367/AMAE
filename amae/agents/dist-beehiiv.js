@@ -26,12 +26,10 @@ async function createDraft(subject, previewText, contentMarkdown) {
   const publicationId = process.env.BEEHIIV_PUBLICATION_ID; 
  
   if (!apiKey || !publicationId) { 
-    throw new Error('[dist-beehiiv.js] BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID 
-required'); 
+    throw new Error('[dist-beehiiv.js] BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID  required');
   } 
  
-  const response = await fetch(`${BH_API}/publications/${publicationId}/posts`, { 
-    method:  'POST', 
+  const response = await fetch(`${BH_API}/publications/${publicationId}/posts`, {  method:  'POST',
     headers: { 
       'Content-Type':  'application/json', 
       'Authorization': `Bearer ${apiKey}`, 
@@ -75,8 +73,7 @@ async function main() {
  
   console.log('[dist-beehiiv.js] Creating newsletter draft in Beehiiv...'); 
   console.log('[dist-beehiiv.js] Subject:', subject); 
-  console.log('[dist-beehiiv.js] NOTE: This creates a DRAFT only. You must review and send 
-manually.'); 
+  console.log('[dist-beehiiv.js] NOTE: This creates a DRAFT only. You must review and send  manually.');
  
   const draftId = await createDraft(subject, preview, body); 
   console.log(`[dist-beehiiv.js] Draft created. Beehiiv post ID: ${draftId}`); 
@@ -84,6 +81,3 @@ manually.');
 } 
  
 main(); 
-``` 
- 
----

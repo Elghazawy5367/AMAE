@@ -9,8 +9,7 @@ import { readJSON, writeFile, ensureDir }      from '../lib/file-utils.js';
 import { getCurrentWeek, getTodayString }      from '../lib/week-utils.js'; 
  
 async function generateStarVelocityCampaign(product) { 
-  const prompt = `Write a "GitHub star velocity" campaign for a solo founder's open-source 
-project. 
+  const prompt = `Write a "GitHub star velocity" campaign for a solo founder's open-source  project.
  
 Product: ${product.name} 
 Tagline: ${product.tagline} 
@@ -57,21 +56,9 @@ async function main() {
  
   ensureDir(`campaigns/${week}/text`); 
   writeFile(`campaigns/${week}/text/star-velocity-campaign.md`, 
-    `# GitHub Star Velocity Campaign — ${week}\nGenerated: 
-${getTodayString()}\n\n${content}`); 
+    `# GitHub Star Velocity Campaign — ${week}\nGenerated:  ${getTodayString()}\n\n${content}`);
  
-  console.log(`[star-velocity-agent.js] Campaign written to 
-campaigns/${week}/text/star-velocity-campaign.md`); 
+  console.log(`[star-velocity-agent.js] Campaign written to  campaigns/${week}/text/star-velocity-campaign.md`);
 } 
  
 main(); 
-``` 
- 
---- 
- 
- 
-<!-- ═══════════════════════════════════════════════ 
-     EVOLUTION SYSTEM — Sunday 3am UTC 
-     CRITICAL: Evolution PRs NEVER auto-merge 
-     Founder decides to merge or close every one 
-═══════════════════════════════════════════════ -->

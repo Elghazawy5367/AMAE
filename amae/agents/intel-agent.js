@@ -23,19 +23,16 @@ async function main() {
   let briefContent; 
  
   if (!synthBrief) { 
-    console.log('[intel-agent] No synthesis brief found — this is Week 1 or Tuesday workflow 
-has not run yet.'); 
+    console.log('[intel-agent] No synthesis brief found — this is Week 1 or Tuesday workflow  has not run yet.');
     briefContent = [ 
       `# Intel Brief — ${getCurrentWeek()}`, 
       `_Generated: ${getTodayString()}_`, 
       '', 
       '## Status', 
-      'No intelligence brief available. Tuesday mining workflow has not run yet, or this is the 
-first run.', 
+      'No intelligence brief available. Tuesday mining workflow has not run yet, or this is the  first run.',
       '', 
       '## Fallback Instructions for Campaign Engine', 
-      'Use the_desire section from config/product-dna.json as the source of all copy 
-language.', 
+      'Use the_desire section from config/product-dna.json as the source of all copy  language.',
       'Generate TOFU awareness content on the primary platform.', 
       'Focus on channeling the audience\'s exact frustration in their own words.', 
       '', 
@@ -59,12 +56,9 @@ synthBrief.match(/\[HOOK\][:]\s*(.+)/i);
       '', 
       '## Campaign Engine Parameters', 
       `**Verbatim Hook Extracted:** ${verbatimHook ?? 'See synthesis brief above'}`, 
-      `**Memory Recommendation:** ${insights.recommendation ?? 'TOFU content on primary 
-platform'}`, 
-      `**Platforms With Resonance:** ${insights.platforms_with_resonance?.join(', ') ?? 'None 
-tracked yet'}`, 
-      `**Funnel Warning:** ${insights.alert === 'desire_section_needs_revision' ? 'ALERT: 
-Desire section needs revision' : 'None'}`, 
+      `**Memory Recommendation:** ${insights.recommendation ?? 'TOFU content on primary  platform'}`,
+      `**Platforms With Resonance:** ${insights.platforms_with_resonance?.join(', ') ?? 'None  tracked yet'}`,
+      `**Funnel Warning:** ${insights.alert === 'desire_section_needs_revision' ? 'ALERT:  Desire section needs revision' : 'None'}`,
     ].join('\n'); 
   } 
  
@@ -73,6 +67,3 @@ Desire section needs revision' : 'None'}`,
 } 
  
 main(); 
-``` 
- 
----

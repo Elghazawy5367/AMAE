@@ -18,8 +18,7 @@ function generateOAuthHeader(method, url, oauthParams, signingKey) {
   const signature  = crypto.createHmac('sha1', 
 signingKey).update(baseString).digest('base64'); 
  
-  return `OAuth ${Object.keys(oauthParams).sort().map(k => 
-    `${encodeURIComponent(k)}="${encodeURIComponent(oauthParams[k])}"` 
+  return `OAuth ${Object.keys(oauthParams).sort().map(k =>  `${encodeURIComponent(k)}="${encodeURIComponent(oauthParams[k])}"`
   ).join(', ')}, oauth_signature="${encodeURIComponent(signature)}"`; 
 } 
  
@@ -110,6 +109,3 @@ async function main() {
 } 
  
 main(); 
-``` 
- 
----

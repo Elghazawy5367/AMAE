@@ -7,8 +7,7 @@
 const GROQ_API = 'https://api.groq.com/openai/v1/chat/completions'; 
  
 export const GROQ_MODELS = { 
-  LLAMA:   'llama-3.3-70b-versatile',   // Default — fast, high quality 
-  LLAMA_SMALL: 'llama-3.1-8b-instant',  // Fastest — for simple tasks only 
+  LLAMA:   'llama-3.3-70b-versatile',   // Default — fast, high quality  LLAMA_SMALL: 'llama-3.1-8b-instant',  // Fastest — for simple tasks only
 }; 
  
 export async function callGroq(messages, model = GROQ_MODELS.LLAMA, maxTokens = 
@@ -58,6 +57,3 @@ export async function quickClassify(prompt) {
   return callGroq([{ role: 'user', content: prompt }], GROQ_MODELS.LLAMA_SMALL, 500, 
 0.1); 
 } 
-``` 
- 
----

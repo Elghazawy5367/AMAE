@@ -30,8 +30,7 @@ const PLATFORMS = [
     id:           'reddit', 
     file:         'reddit-post.md', 
     humanRequired: true, 
-    humanFlag:    'HUMAN REVIEW REQUIRED — AMAE writes, founder posts manually. 
-Reddit bans bots permanently.', 
+    humanFlag:    'HUMAN REVIEW REQUIRED — AMAE writes, founder posts manually.  Reddit bans bots permanently.',
     maxTokens:    2000, 
     model:        MODELS.REASONING, // Better quality for long-form value post 
   }, 
@@ -39,8 +38,7 @@ Reddit bans bots permanently.',
     id:           'quora', 
     file:         'quora-answer.md', 
     humanRequired: true, 
-    humanFlag:    'HUMAN REVIEW REQUIRED — Post manually after reading. No 
-marketing language.', 
+    humanFlag:    'HUMAN REVIEW REQUIRED — Post manually after reading. No  marketing language.',
     maxTokens:    1500, 
     model:        MODELS.REASONING, 
   }, 
@@ -48,8 +46,7 @@ marketing language.',
     id:           'newsletter', 
     file:         'newsletter.md', 
     humanRequired: true, 
-    humanFlag:    'HUMAN REVIEWS AND SENDS — Never auto-send. Review in Beehiiv 
-before sending.', 
+    humanFlag:    'HUMAN REVIEWS AND SENDS — Never auto-send. Review in Beehiiv  before sending.',
     maxTokens:    2000, 
     model:        MODELS.REASONING, 
   }, 
@@ -64,8 +61,7 @@ before sending.',
  
 // Platform-specific prompt rules 
 const PLATFORM_RULES = { 
-  linkedin: `LINKEDIN 2026 RULES (non-negotiable — enforce every rule): 
-- Optimal length: 900–1200 characters 
+  linkedin: `LINKEDIN 2026 RULES (non-negotiable — enforce every rule):  - Optimal length: 900–1200 characters
 - NO external links anywhere in the post body 
 - NO external links in the first comment 
 - Never start with "I", "We", "Our", "Today", or "In this post" 
@@ -75,8 +71,7 @@ const PLATFORM_RULES = {
 - One clear CTA at the end — specific action, not "what do you think?" 
 - Algorithm rewards: dwell time, saves, substantive comments. Write for depth.`, 
  
-  twitter: `TWITTER/X 2026 RULES (non-negotiable): 
-- Thread length: 7–9 tweets total 
+  twitter: `TWITTER/X 2026 RULES (non-negotiable):  - Thread length: 7–9 tweets total
 - Tweet 1 (HOOK): The verbatim hook. No link. Creates an open loop. Under 200 characters. 
 - Tweets 2–6: numbered value points (1/ 2/ 3/ format). One idea per tweet. Under 260 chars 
 each. 
@@ -86,8 +81,7 @@ each.
 - Algorithm: reply volume in first 60 minutes is the primary reach signal 
 - Write something people agree with loudly OR disagree with specifically`, 
  
-  reddit: `REDDIT 2026 RULES (non-negotiable): 
-- Long-form value post — minimum 400 words 
+  reddit: `REDDIT 2026 RULES (non-negotiable):  - Long-form value post — minimum 400 words
 - Title: specific result or question that would make this subreddit click 
 - Zero promotional language in the first 3 paragraphs 
 - Story format: situation → problem → what they tried → what worked 
@@ -96,8 +90,7 @@ each.
 - Include specific numbers, timelines, and honest failures 
 - End with an open question to invite genuine discussion`, 
  
-  quora: `QUORA 2026 RULES (AEO-optimized): 
-- Structure: Direct answer first (2 sentences) → personal experience → specific data → 
+  quora: `QUORA 2026 RULES (AEO-optimized):  - Structure: Direct answer first (2 sentences) → personal experience → specific data →
 product mention (optional, at end only) 
 - First 2 sentences must completely answer the question — AI systems extract these 
 - Use "I" and first-person throughout — experience-based answers outperform generic ones 
@@ -106,19 +99,16 @@ product mention (optional, at end only)
 - Length: 300–500 words optimal 
 - End with a genuine insight, not a CTA`, 
  
-  newsletter: `NEWSLETTER 2026 RULES (Beehiiv draft): 
-- Subject line: [Specific number or outcome]: [what they get inside] 
+  newsletter: `NEWSLETTER 2026 RULES (Beehiiv draft):  - Subject line: [Specific number or outcome]: [what they get inside]
 - Preheader: One sentence that expands the subject line 
 - Body structure: 1 insight (150 words) + 1 resource (50 words) + 1 action step (50 words) + 
 1 question (25 words) 
 - Total body: 400–600 words 
-- Opening: Do not start with "Hi [first name]" or "Welcome to this week's newsletter" 
-- Use the verbatim hook from copy-ammunition.md as the opening line 
+- Opening: Do not start with "Hi [first name]" or "Welcome to this week's newsletter"  - Use the verbatim hook from copy-ammunition.md as the opening line
 - One link maximum in the entire email body 
 - End with a genuine question that invites reply`, 
  
-  aeo_article: `AEO ARTICLE 2026 RULES (structured for AI citation): 
-- Title: the exact question your audience would type into an AI search engine 
+  aeo_article: `AEO ARTICLE 2026 RULES (structured for AI citation):  - Title: the exact question your audience would type into an AI search engine
 - First 100 words: complete answer to the title question — AI systems extract this paragraph 
 - Structure: H1 title → intro (complete answer) → H2 sections (2–3) → FAQ section (5 Q&A) 
 - FAQ structure: each answer must be complete in 2–3 sentences — no "see above" 
@@ -155,14 +145,11 @@ function extractVerbatimHook(stratBrief, synthBrief) {
 async function generatePlatformContent(platform, context) { 
   const { product, desire, voice, stratBrief, synthBrief, verbatimHook, week } = context; 
  
-  const rules = PLATFORM_RULES[platform.id] ?? `Write appropriate content for 
-${platform.id}.`; 
+  const rules = PLATFORM_RULES[platform.id] ?? `Write appropriate content for  ${platform.id}.`;
  
   const hookInstruction = verbatimHook 
-    ? `VERBATIM HOOK (from real audience language — start with this, adapted 
-minimally):\n"${verbatimHook}"` 
-    : `No verbatim hook available. Use the most emotionally resonant phrase from the desire 
-section below as your opening.`; 
+    ? `VERBATIM HOOK (from real audience language — start with this, adapted  minimally):\n"${verbatimHook}"`
+    : `No verbatim hook available. Use the most emotionally resonant phrase from the desire  section below as your opening.`;
  
   const prompt = `You are writing ${platform.id} content for a solo founder. Week: ${week} 
  
@@ -174,8 +161,7 @@ They fear most: ${desire.what_they_fear_most}
 They are frustrated by: ${desire.what_they_are_frustrated_by} 
 Who they want to become: ${desire.who_they_want_to_become} 
  
-THIS WEEK'S STRATEGY (follow the agreed angle and hero format): 
-${stratBrief.slice(0, 600)} 
+THIS WEEK'S STRATEGY (follow the agreed angle and hero format):  ${stratBrief.slice(0, 600)}
  
 ${hookInstruction} 
  
@@ -226,8 +212,7 @@ getCurrentWeek() };
  
   // ── Generate all platforms in parallel 
 ───────────────────────────────────── 
-  console.log(`[content-factory] Generating ${PLATFORMS.length} platform files in 
-parallel...`); 
+  console.log(`[content-factory] Generating ${PLATFORMS.length} platform files in  parallel...`);
  
   const results = await Promise.all( 
     PLATFORMS.map(async platform => { 
@@ -258,8 +243,7 @@ parallel...`);
     `_Generated: ${getTodayString()}_`, 
     '', 
     '## Platforms Generated', 
-    ...results.map(r => `- [${r.success ? 'x' : ' '}] ${r.id}${r.success ? ` (${r.words} words)` : ` — 
-FAILED: ${r.error}`}`), 
+    ...results.map(r => `- [${r.success ? 'x' : ' '}] ${r.id}${r.success ? ` (${r.words} words)` : ` —  FAILED: ${r.error}`}`),
     '', 
     '## Requires Human Action (AMAE writes, you act)', 
     '- [ ] `reddit-post.md` — read, then post manually to the subreddit', 
@@ -295,6 +279,3 @@ platforms generated.`);
 } 
  
 main(); 
-``` 
- 
----

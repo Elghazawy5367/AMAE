@@ -35,8 +35,7 @@ async function main() {
  
   console.log('[dist-facebook.js] Posting to Facebook Page...'); 
  
-  const response = await fetch(`${FB_API}/${pageId}/feed`, { 
-    method:  'POST', 
+  const response = await fetch(`${FB_API}/${pageId}/feed`, {  method:  'POST',
     headers: { 'Content-Type': 'application/json' }, 
     body:    JSON.stringify({ message: postText, access_token: token }), 
   }); 
@@ -51,6 +50,3 @@ async function main() {
 } 
  
 main(); 
-``` 
- 
----

@@ -30,29 +30,24 @@ const AI_TELL_PHRASES = [
  
 // Platform-specific rule violations 
 const PLATFORM_RULES = { 
-  'linkedin-post.md': [ 
-    { 
+  'linkedin-post.md': [  {
       name:    'linkedin_no_links', 
       test:    (text) => /https?:\/\//i.test(text), 
-      fix:     'Remove ALL URLs from this LinkedIn post. LinkedIn penalizes reach by 68% 
-when links appear. Remove the URL completely — do not replace it with "link in bio".', 
+      fix:     'Remove ALL URLs from this LinkedIn post. LinkedIn penalizes reach by 68%  when links appear. Remove the URL completely — do not replace it with "link in bio".',
     }, 
     { 
       name:    'linkedin_no_i_opener', 
       test:    (text) => /^I /m.test(text.trimStart()), 
-      fix:     'The post opens with "I". Restructure the opening sentence so it does not start with 
-"I". The hook should be the claim or the number, not the author.', 
+      fix:     'The post opens with "I". Restructure the opening sentence so it does not start with  "I". The hook should be the claim or the number, not the author.',
     }, 
   ], 
-  'twitter-thread.md': [ 
-    { 
+  'twitter-thread.md': [  {
       name:    'twitter_link_in_first_tweet', 
       test:    (text) => { 
         const firstTweet = text.split(/Tweet [2-9]|^\d\/\n/m)[0]; 
         return /https?:\/\//i.test(firstTweet); 
       }, 
-      fix:     'There is a URL in the first tweet of this thread. Move it to the last tweet only. The 
-first tweet must have no links to maximize reach.', 
+      fix:     'There is a URL in the first tweet of this thread. Move it to the last tweet only. The  first tweet must have no links to maximize reach.',
     }, 
   ], 
 }; 
@@ -111,8 +106,7 @@ async function main() {
       if (lower.includes(phrase.toLowerCase())) { 
         issues.push({ 
           name: `ai_tell`, 
-          fix:  `Remove the phrase "${phrase}" and rewrite that sentence in plain human 
-language.`, 
+          fix:  `Remove the phrase "${phrase}" and rewrite that sentence in plain human  language.`,
           phrase, 
         }); 
       } 
@@ -138,8 +132,7 @@ language.`,
     // Attempt rewrites (max 2 passes) 
     let currentContent = content; 
     for (let pass = 1; pass <= MAX_REWRITES; pass++) { 
-      console.log(`[guardrail-agent] Rewriting ${filename} (pass 
-${pass}/${MAX_REWRITES})...`); 
+      console.log(`[guardrail-agent] Rewriting ${filename} (pass  ${pass}/${MAX_REWRITES})...`);
       try { 
         const fixed = await rewriteFile(currentContent, issues, filePath); 
  
@@ -182,6 +175,3 @@ ${pass}/${MAX_REWRITES})...`);
 } 
  
 main(); 
-``` 
- 
----

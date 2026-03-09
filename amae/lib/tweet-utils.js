@@ -39,8 +39,7 @@ export function buildOAuthHeader(method, url, params, credentials) {
     .join(', ');
 }
 
-// Parse a markdown thread file split on '---' separators
-export function parseThread(markdownContent) {
+// Parse a markdown thread file split on '---' separators export function parseThread(markdownContent) {
   return markdownContent
     .split(/^---$/m)
     .map(t => t.trim())

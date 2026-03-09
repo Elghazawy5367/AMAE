@@ -32,14 +32,12 @@ async function checkCitationSignals(productName, category) {
 async function checkGitHubMentions(productName) { 
   try { 
     const url      = 
-`https://api.github.com/search/code?q=${encodeURIComponent(productName)}&per_page=
-10`; 
+`https://api.github.com/search/code?q=${encodeURIComponent(productName)}&per_page= 10`;
     const response = await fetch(url, { 
       headers: { 
         'Accept':     'application/vnd.github.v3+json', 
         'User-Agent': 'AMAE-Citation-Tracker/1.0', 
-        ...(process.env.GITHUB_TOKEN ? { 'Authorization': `Bearer 
-${process.env.GITHUB_TOKEN}` } : {}), 
+        ...(process.env.GITHUB_TOKEN ? { 'Authorization': `Bearer  ${process.env.GITHUB_TOKEN}` } : {}),
       }, 
     }); 
     if (!response.ok) return { count: 0, note: 'GitHub search unavailable' }; 
@@ -76,6 +74,3 @@ async function main() {
 } 
  
 main(); 
-``` 
- 
----

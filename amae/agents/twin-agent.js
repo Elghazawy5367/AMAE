@@ -89,8 +89,7 @@ async function main() {
       continue; 
     } 
  
-    const prompt = `You are extracting marketing intelligence from a GitHub repository for an 
-autonomous marketing system. 
+    const prompt = `You are extracting marketing intelligence from a GitHub repository for an  autonomous marketing system.
  
 REPO: ${candidate.full_name} 
 DESCRIPTION: ${candidate.description} 
@@ -135,8 +134,7 @@ MODELS.REASONING, 1000, 0.3);
       const outputPath = `intelligence/discovered/${slug}`; 
       ensureDir(outputPath); 
  
-      writeJSON(`${outputPath}/intelligence.json`, { 
-        ...intel, 
+      writeJSON(`${outputPath}/intelligence.json`, {  ...intel,
         repo:             candidate.full_name, 
         repo_url:         candidate.url, 
         repo_stars:       candidate.stars, 
@@ -145,16 +143,14 @@ MODELS.REASONING, 1000, 0.3);
         status:           'pending_evolution', 
       }); 
  
-      console.log(`[twin-agent] ${candidate.full_name}: ${intel.confidence} confidence 
-${intel.insight_type}`); 
+      console.log(`[twin-agent] ${candidate.full_name}: ${intel.confidence} confidence  ${intel.insight_type}`);
  
     } catch (err) { 
       console.error(`[twin-agent] Failed to extract from ${candidate.full_name}:`, err.message); 
  
       const outputPath = `intelligence/discovered/${slug}`; 
       ensureDir(outputPath); 
-      writeJSON(`${outputPath}/intelligence.json`, { 
-        repo:          candidate.full_name, 
+      writeJSON(`${outputPath}/intelligence.json`, {  repo:          candidate.full_name,
         status:        'extraction_failed', 
         error:         err.message, 
         extracted_at:  getTodayString(), 
@@ -168,6 +164,3 @@ ${intel.insight_type}`);
 } 
  
 main(); 
-``` 
- 
----

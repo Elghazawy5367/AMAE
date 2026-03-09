@@ -46,8 +46,7 @@ async function githubFetch(url) {
     console.log(`[scout-agent] GitHub rate limit — remaining: ${remaining}`); 
     if (remaining === '0') { 
       const reset = response.headers.get('x-ratelimit-reset'); 
-      console.log(`[scout-agent] Rate limit resets at: ${new Date(Number(reset) * 
-1000).toISOString()}`); 
+      console.log(`[scout-agent] Rate limit resets at: ${new Date(Number(reset) *  1000).toISOString()}`);
     } 
     return null; 
   } 
@@ -188,6 +187,3 @@ queued for twin agent.`);
 } 
  
 main(); 
-``` 
- 
----

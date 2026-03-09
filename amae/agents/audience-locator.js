@@ -48,8 +48,7 @@ async function main() {
  
   const redditActivity = await scanSubreddits(subreddits); 
  
-  const prompt = `You are mapping where an ICP is most active this week for marketing 
-targeting. 
+  const prompt = `You are mapping where an ICP is most active this week for marketing  targeting.
  
 ICP: ${product.icp?.primary ?? ''} 
 ICP vocabulary: ${JSON.stringify(product.icp?.vocabulary_they_use ?? [])} 
@@ -80,8 +79,7 @@ Return ONLY valid JSON:
   const data = parseJSON(raw); 
  
   ensureDir('intelligence/weekly'); 
-  writeJSON('intelligence/weekly/audience-map.json', { 
-    generated: getTodayString(), 
+  writeJSON('intelligence/weekly/audience-map.json', {  generated: getTodayString(),
     week:      getCurrentWeek(), 
     ...data, 
   }); 
@@ -90,6 +88,3 @@ Return ONLY valid JSON:
 } 
  
 main(); 
-``` 
- 
----

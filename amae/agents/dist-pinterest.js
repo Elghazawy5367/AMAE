@@ -16,8 +16,7 @@ async function createPin(token, boardId, title, description, imageUrl, link = nu
   }; 
   if (link) body.link = link; 
  
-  const response = await fetch(`${PIN_API}/pins`, { 
-    method:  'POST', 
+  const response = await fetch(`${PIN_API}/pins`, {  method:  'POST',
     headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, 
     body:    JSON.stringify(body), 
   }); 
@@ -42,12 +41,8 @@ async function main() {
     return; 
   } 
  
-  console.log('[dist-pinterest.js] Pinterest requires generated pin images. Check 
-assets/generated/ for PNG files.'); 
+  console.log('[dist-pinterest.js] Pinterest requires generated pin images. Check  assets/generated/ for PNG files.');
   // Full implementation loops through pin specs + image files and creates pins 
 } 
  
 main(); 
-``` 
- 
----

@@ -15,8 +15,7 @@ async function main() {
   const runwayKey = process.env.RUNWAY_API_KEY; 
  
   if (!heygenKey && !runwayKey) { 
-    console.log('[video-producer.js] No HEYGEN_API_KEY or RUNWAY_API_KEY set. 
-Skipping video production.'); 
+    console.log('[video-producer.js] No HEYGEN_API_KEY or RUNWAY_API_KEY set.  Skipping video production.');
     return; 
   } 
  
@@ -53,6 +52,3 @@ Skipping video production.');
 } 
  
 main(); 
-``` 
- 
----

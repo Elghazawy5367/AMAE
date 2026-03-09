@@ -17,8 +17,7 @@ export function readJSON(filePath) {
     const content = fs.readFileSync(abs, 'utf8'); 
     return JSON.parse(content); 
   } catch (err) { 
-    if (err.code === 'ENOENT') return null; // Missing file = null, not an error 
-    console.error(`[file-utils] readJSON failed: ${filePath} — ${err.message}`); 
+    if (err.code === 'ENOENT') return null; // Missing file = null, not an error  console.error(`[file-utils] readJSON failed: ${filePath} — ${err.message}`);
     return null; 
   } 
 } 
@@ -41,8 +40,7 @@ export function writeJSON(filePath, data) {
 } 
  
 /** 
- * Read text/markdown file safely. Returns '' if file does not exist. 
- * @param {string} filePath - relative to process.cwd() 
+ * Read text/markdown file safely. Returns '' if file does not exist.  * @param {string} filePath - relative to process.cwd()
  */ 
 export function readText(filePath) { 
   try { 
@@ -84,8 +82,7 @@ export function ensureDir(dirPath) {
  * List all files in a directory with a given extension. 
  * Returns [] if directory does not exist. 
  */ 
-export function listFiles(dirPath, ext = '.md') { 
-  try { 
+export function listFiles(dirPath, ext = '.md') {  try {
     const abs = path.join(process.cwd(), dirPath); 
     if (!fs.existsSync(abs)) return []; 
     return fs.readdirSync(abs).filter(f => f.endsWith(ext)); 
@@ -103,6 +100,3 @@ export function fileExists(filePath) {
  
 // Alias: Tab 2 agents import writeFile — maps to writeText 
 export const writeFile = writeText; 
-``` 
- 
----

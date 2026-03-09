@@ -13,8 +13,7 @@ async function postToLinkedIn(text, authorUrn) {
   const token = process.env.LINKEDIN_ACCESS_TOKEN; 
   if (!token) throw new Error('[dist-linkedin.js] LINKEDIN_ACCESS_TOKEN not set'); 
  
-  const response = await fetch(`${LI_API}/posts`, { 
-    method:  'POST', 
+  const response = await fetch(`${LI_API}/posts`, {  method:  'POST',
     headers: { 
       'Authorization':   `Bearer ${token}`, 
       'Content-Type':    'application/json', 
@@ -58,8 +57,7 @@ async function main() {
  
   if (!token || !personUrn) { 
     console.log('[dist-linkedin.js] LinkedIn credentials not configured. Skipping auto-post.'); 
-    console.log('[dist-linkedin.js] Add LINKEDIN_ACCESS_TOKEN and 
-LINKEDIN_PERSON_URN to secrets when ready.'); 
+    console.log('[dist-linkedin.js] Add LINKEDIN_ACCESS_TOKEN and  LINKEDIN_PERSON_URN to secrets when ready.');
     return; 
   } 
  
@@ -87,13 +85,8 @@ LINKEDIN_PERSON_URN to secrets when ready.');
  
   // Log distribution 
   ensureDir('analytics'); 
-  const log = `{"platform":"linkedin","week":"${week}","post_id":"${postId}","posted_at":"${new 
-Date().toISOString()}"}\n`; 
-  writeFile('analytics/distribution-log.jsonl', (readText('analytics/distribution-log.jsonl') ?? '') + 
-log); 
+  const log = `{"platform":"linkedin","week":"${week}","post_id":"${postId}","posted_at":"${new  Date().toISOString()}"}\n`;
+  writeFile('analytics/distribution-log.jsonl', (readText('analytics/distribution-log.jsonl') ?? '') +  log);
 } 
  
 main(); 
-``` 
- 
----

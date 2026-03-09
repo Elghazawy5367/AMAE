@@ -1,6 +1,5 @@
 // === FILE: agents/hook-miner.js === 
-// Job: Match best hook formula to this week's angle 
-// Reads: intelligence/patterns/hook-formulas.md, intelligence/weekly/copy-ammunition.md 
+// Job: Match best hook formula to this week's angle  // Reads: intelligence/patterns/hook-formulas.md, intelligence/weekly/copy-ammunition.md
 // Writes: intelligence/weekly/hook-recommendation.json 
 // Called by: .github/workflows/weekly-intelligence.yml 
  
@@ -23,8 +22,7 @@ async function main() {
     return; 
   } 
  
-  const prompt = `You are selecting the best hook formula for this week's marketing 
-campaign. 
+  const prompt = `You are selecting the best hook formula for this week's marketing  campaign.
  
 PRODUCT: ${product.name} 
 ICP: ${product.icp?.primary ?? ''} 
@@ -34,8 +32,7 @@ NEVER SAY: ${JSON.stringify(product.brand_voice?.never_say ?? [])}
 HOOK FORMULA LIBRARY: 
 ${hookLib.slice(0, 3000)} 
  
-THIS WEEK'S COPY AMMUNITION (Tier 1 verbatim phrases): 
-${copyAmmo.slice(0, 2000)} 
+THIS WEEK'S COPY AMMUNITION (Tier 1 verbatim phrases):  ${copyAmmo.slice(0, 2000)}
  
 TIMING CONTEXT: 
 ${JSON.stringify(timingWin.publish_now_window ?? [], null, 2).slice(0, 1000)} 
@@ -67,8 +64,7 @@ Return ONLY valid JSON:
   const data = parseJSON(raw); 
  
   ensureDir('intelligence/weekly'); 
-  writeJSON('intelligence/weekly/hook-recommendation.json', { 
-    generated: getTodayString(), 
+  writeJSON('intelligence/weekly/hook-recommendation.json', {  generated: getTodayString(),
     week:      getCurrentWeek(), 
     ...data, 
   }); 
@@ -77,6 +73,3 @@ Return ONLY valid JSON:
 } 
  
 main(); 
-``` 
- 
----

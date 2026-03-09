@@ -16,8 +16,7 @@ function injectFAQSchema(html, faqs) {
   const schema = { 
     '@context':  'https://schema.org', 
     '@type':     'FAQPage', 
-    'mainEntity': faqs.map(faq => ({ 
-      '@type':          'Question', 
+    'mainEntity': faqs.map(faq => ({  '@type':          'Question',
       'name':           faq.question, 
       'acceptedAnswer': { '@type': 'Answer', 'text': faq.answer }, 
     })), 
@@ -38,8 +37,7 @@ function injectSoftwareSchema(html, product) {
     'description': product.tagline, 
     'applicationCategory': 'BusinessApplication', 
     'operatingSystem': 'Web', 
-    'offers': { 
-      '@type':    'Offer', 
+    'offers': {  '@type':    'Offer',
       'price':    product.pricing?.model === 'free' ? '0' : '', 
       'priceCurrency': 'USD', 
     }, 
@@ -95,8 +93,7 @@ async function main() {
       return; 
     } 
  
-    const htmlFiles = fs.readdirSync(blogDir).filter(f => f.endsWith('.html') && f !== 
-'index.html'); 
+    const htmlFiles = fs.readdirSync(blogDir).filter(f => f.endsWith('.html') && f !==  'index.html');
     console.log(`[aeo-optimizer.js] Processing ${htmlFiles.length} blog posts...`); 
  
     for (const file of htmlFiles) { 
@@ -104,8 +101,7 @@ async function main() {
       let html       = fs.readFileSync(filePath, 'utf8'); 
  
       // Skip if already has FAQPage schema 
-      if (html.includes('FAQPage')) { 
-        console.log(`[aeo-optimizer.js] Already optimized: ${file}`); 
+      if (html.includes('FAQPage')) {  console.log(`[aeo-optimizer.js] Already optimized: ${file}`);
         continue; 
       } 
  
@@ -121,8 +117,7 @@ async function main() {
  
       // Check first 100 words completeness 
       if (!checkFirst100Words(html)) { 
-        console.log(`[aeo-optimizer.js] Warning: ${file} may not have complete first-100-words 
-answer`); 
+        console.log(`[aeo-optimizer.js] Warning: ${file} may not have complete first-100-words  answer`);
       } 
  
       fs.writeFileSync(filePath, html); 
@@ -133,6 +128,3 @@ answer`);
 } 
  
 main(); 
-``` 
- 
----

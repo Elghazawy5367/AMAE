@@ -13,8 +13,7 @@ async function main() {
   console.log(`[marketplace-agent.js] Running in ${mode} mode...`); 
  
   const week      = getCurrentWeek(); 
-  const outputDir = mode === 'weekly' ? `campaigns/${week}/marketplace` : 
-'campaigns/marketplace-refresh'; 
+  const outputDir = mode === 'weekly' ? `campaigns/${week}/marketplace` :  'campaigns/marketplace-refresh';
   ensureDir(outputDir); 
  
   const dna        = readJSON('config/product-dna.json'); 
@@ -50,16 +49,3 @@ HUNT[\s\S]*?(?=G2|CAPTERRA|INDIE|$)/i)?.[0];
 } 
  
 main(); 
-``` 
- 
---- 
- 
- 
-<!-- ═══════════════════════════════════════════════ 
-     DISTRIBUTION AGENTS 
-     CRITICAL RULES: 
-     - dist-reddit.js: WRITES DRAFT ONLY, NEVER AUTO-POSTS 
-     - dist-beehiiv.js: CREATES DRAFT ONLY, NEVER SENDS 
-     - dist-tiktok.js: WRITES DRAFT ONLY, NEVER AUTO-POSTS 
-     - dist-community.js: WRITES DRAFT ONLY, NEVER AUTO-POSTS 
-═══════════════════════════════════════════════ -->

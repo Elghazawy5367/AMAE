@@ -15,8 +15,7 @@ async function main() {
   const product         = dna.products[dna.active_product]; 
   const competitorFails = readText('intelligence/weekly/competitor-failures.md') ?? ''; 
  
-  const prompt = `You are mapping objections a skeptical prospect would have about 
-${product.name}. 
+  const prompt = `You are mapping objections a skeptical prospect would have about  ${product.name}.
  
 PRODUCT: ${product.name} 
 STAGE: ${product.stage ?? 'launched'} 
@@ -59,8 +58,7 @@ ${data.primary_objection_this_week ?? '_None identified_'}
  
 ## FULL OBJECTION MAP 
  
-${data.objection_map?.map(o => `### "${o.objection}" 
-- Category: ${o.category} 
+${data.objection_map?.map(o => `### "${o.objection}"  - Category: ${o.category}
 - Frequency: ${o.frequency} 
 - Pre-emption angle: ${o.pre_emption_angle} 
 - Ready sentence: "${o.content_ready_sentence}" 
@@ -74,6 +72,3 @@ ${data.objection_map?.map(o => `### "${o.objection}"
 } 
  
 main(); 
-``` 
- 
----

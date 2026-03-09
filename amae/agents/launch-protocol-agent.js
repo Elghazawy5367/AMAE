@@ -62,13 +62,11 @@ async function main() {
   for (const phase of LAUNCH_PHASES) { 
     console.log(`[launch-protocol-agent.js] Generating ${phase}...`); 
     const content = await generateLaunchContent(product, phase, releaseInfo); 
-    writeFile(`${launchDir}/text/${phase}.md`, `# Launch ${phase} — 
-${getTodayString()}\n\n${content}`); 
+    writeFile(`${launchDir}/text/${phase}.md`, `# Launch ${phase} —  ${getTodayString()}\n\n${content}`);
   } 
  
   // Generate posting schedule 
-  const schedule = `# Launch Posting Schedule 
-Generated: ${getTodayString()} 
+  const schedule = `# Launch Posting Schedule  Generated: ${getTodayString()}
  
 ## T-72 hours (3 days before) 
 - [ ] Post teaser in 3 Reddit communities (MANUAL) 
@@ -93,11 +91,7 @@ Generated: ${getTodayString()}
 **Always check: Reddit and Quora = human posts only. Newsletter = human send only.** 
 `; 
   writeFile(`${launchDir}/LAUNCH-SCHEDULE.md`, schedule); 
-  console.log('[launch-protocol-agent.js] Launch sequence complete. Review 
-campaigns/launch/.'); 
+  console.log('[launch-protocol-agent.js] Launch sequence complete. Review  campaigns/launch/.');
 } 
  
 main(); 
-``` 
- 
----

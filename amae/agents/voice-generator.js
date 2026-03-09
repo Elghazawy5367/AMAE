@@ -31,8 +31,7 @@ OVERLAY:|SOUND:|$)/si);
 async function main() { 
   const apiKey = process.env.ELEVENLABS_API_KEY; 
   if (!apiKey) { 
-    console.log('[voice-generator.js] ELEVENLABS_API_KEY not set. Skipping voice 
-generation.'); 
+    console.log('[voice-generator.js] ELEVENLABS_API_KEY not set. Skipping voice  generation.');
     return; 
   } 
  
@@ -76,11 +75,7 @@ energy: 0.4 });
   console.log(`[voice-generator.js] Generating ${scripts.length} voiceovers...`); 
   const results = await generateAllVoiceovers(scripts); 
   const succeeded = results.filter(r => r.success).length; 
-  console.log(`[voice-generator.js] Done. ${succeeded}/${scripts.length} voiceovers 
-generated.`); 
+  console.log(`[voice-generator.js] Done. ${succeeded}/${scripts.length} voiceovers  generated.`);
 } 
  
 main(); 
-``` 
- 
----

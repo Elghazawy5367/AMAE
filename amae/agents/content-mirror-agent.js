@@ -9,8 +9,7 @@ import { readJSON, readText, writeFile, listFiles } from '../lib/file-utils.js';
 import { getCurrentWeek } from '../lib/week-utils.js'; 
 import path from 'path'; 
  
-const MIRROR_PROMPT = (content, platform, funnelStage, verbatimHook) => ` 
-You are scoring marketing content against quality benchmarks. 
+const MIRROR_PROMPT = (content, platform, funnelStage, verbatimHook) => `  You are scoring marketing content against quality benchmarks.
  
 Platform: ${platform} 
 Funnel stage: ${funnelStage} 
@@ -48,8 +47,7 @@ async function scoreContent(content, platform, funnelStage, verbatimHook) {
  
 async function rewriteContent(content, failures) { 
   const fixInstructions = failures.map(f => `${f.dimension}: ${f.fix_instruction}`).join('\n'); 
-  const prompt = `Fix ONLY these specific issues in the content below. Do not change 
-anything else. 
+  const prompt = `Fix ONLY these specific issues in the content below. Do not change  anything else.
  
 ISSUES TO FIX: 
 ${fixInstructions} 
@@ -70,8 +68,7 @@ async function main() {
   const copyAmmo      = readText('intelligence/weekly/copy-ammunition.md') ?? ''; 
   const hookMatch     = copyAmmo.match(/^"(.+)"$/m); 
   const verbatimHook  = hookMatch?.[1] ?? ''; 
-  const funnelMap     = readJSON(`campaigns/${week}/funnel-map.json`) ?? { 
-classified_pieces: [] }; 
+  const funnelMap     = readJSON(`campaigns/${week}/funnel-map.json`) ?? {  classified_pieces: [] };
  
   const contentFiles = listFiles(textDir, '.md'); 
   if (!contentFiles.length) { 
@@ -96,8 +93,7 @@ p.file?.includes(path.basename(filePath)))?.stage ?? 'TOFU';
       if (!score?.weighted_score) continue; 
  
       logLines.push(`## ${path.basename(filePath)}`); 
-      logLines.push(`Score: ${score.weighted_score}/100 — ${score.pass ? '✅ PASS' : '❌ 
-FAIL'}`); 
+      logLines.push(`Score: ${score.weighted_score}/100 — ${score.pass ? '✅ PASS' : '❌  FAIL'}`);
  
       if (!score.pass && score.rewrite_required && score.failures?.length) { 
         logLines.push(`Rewriting (failures: ${score.failures.map(f => f.dimension).join(', ')})...`); 
@@ -129,12 +125,3 @@ rewritten.`);
 } 
  
 main(); 
-``` 
- 
---- 
- 
- 
-<!-- ═══════════════════════════════════════════════ 
-     MEDIA AGENTS — continue-on-error: true 
-     Never block campaign on media failures 
-═══════════════════════════════════════════════ -->

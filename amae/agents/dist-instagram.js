@@ -9,8 +9,7 @@ import { getCurrentWeek }                  from '../lib/week-utils.js';
 const IG_API = 'https://graph.facebook.com/v21.0'; 
  
 async function createMediaObject(accountId, token, imageUrl, caption) { 
-  const response = await fetch(`${IG_API}/${accountId}/media`, { 
-    method:  'POST', 
+  const response = await fetch(`${IG_API}/${accountId}/media`, {  method:  'POST',
     headers: { 'Content-Type': 'application/json' }, 
     body:    JSON.stringify({ image_url: imageUrl, caption, access_token: token }), 
   }); 
@@ -19,8 +18,7 @@ async function createMediaObject(accountId, token, imageUrl, caption) {
 } 
  
 async function publishMedia(accountId, token, creationId) { 
-  const response = await fetch(`${IG_API}/${accountId}/media_publish`, { 
-    method:  'POST', 
+  const response = await fetch(`${IG_API}/${accountId}/media_publish`, {  method:  'POST',
     headers: { 'Content-Type': 'application/json' }, 
     body:    JSON.stringify({ creation_id: creationId, access_token: token }), 
   }); 
@@ -60,6 +58,3 @@ async function main() {
 } 
  
 main(); 
-``` 
- 
----

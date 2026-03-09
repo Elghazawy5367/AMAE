@@ -16,19 +16,10 @@ async function main() {
   } 
  
   writeFile(`campaigns/${week}/COMMUNITY_MANUAL_POSTS.md`, 
-    `# Community Seeding — Post Manually\n\n> These posts must be posted by a human. 
-Never auto-post to communities.\n> Join the community, contribute first, then 
+    `# Community Seeding — Post Manually\n\n> These posts must be posted by a human.  Never auto-post to communities.\n> Join the community, contribute first, then
 post.\n\n${content}`); 
  
   console.log('[dist-community.js] Community posts prepared for manual distribution.'); 
 } 
  
 main(); 
-``` 
---- 
- 
- 
-<!-- ═══════════════════════════════════════════════ 
-     GITHUB PLATFORM AGENTS 
-     AEO · Profile · Citations · Launch · Stars 
-═══════════════════════════════════════════════ -->

@@ -45,11 +45,7 @@ ${content}
  
   writeFile(manualFile, instructions); 
   console.log(`[dist-reddit.js] Manual posting instructions written to: ${manualFile}`); 
-  console.log('[dist-reddit.js] 🔴 Post this manually — NEVER via API. Reddit bans bots 
-permanently.'); 
+  console.log('[dist-reddit.js] 🔴 Post this manually — NEVER via API. Reddit bans bots  permanently.');
 } 
  
 main(); 
-``` 
- 
----

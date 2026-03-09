@@ -10,34 +10,21 @@ import { getCampaignFolder, getTodayString }        from '../lib/week-utils.js';
  
 // Platform-to-funnel mappings based on 2026 platform behavior 
 const PLATFORM_FUNNEL_MAP = { 
-  'linkedin-post.md':       { stage: 'MOFU', goal: 'credibility_and_depth',    humanRequired: 
-false }, 
-  'twitter-thread.md':      { stage: 'TOFU', goal: 'awareness_and_reach',      humanRequired: 
-false }, 
-  'tiktok-script.md':       { stage: 'TOFU', goal: 'awareness_and_discovery',  humanRequired: 
-false }, 
+  'linkedin-post.md':       { stage: 'MOFU', goal: 'credibility_and_depth',    humanRequired:  false },
+  'twitter-thread.md':      { stage: 'TOFU', goal: 'awareness_and_reach',      humanRequired:  false },
+  'tiktok-script.md':       { stage: 'TOFU', goal: 'awareness_and_discovery',  humanRequired:  false },
   'instagram-reel.md':      { stage: 'TOFU', goal: 'awareness_and_discovery',  
 humanRequired: false }, 
-  'youtube-short.md':       { stage: 'TOFU', goal: 'discovery_and_retention',  humanRequired: 
-false }, 
-  'youtube-long.md':        { stage: 'MOFU', goal: 'authority_and_depth',      humanRequired: 
-false }, 
-  'reddit-post.md':         { stage: 'TOFU', goal: 'community_trust',          humanRequired: true  
-}, 
-  'quora-answer.md':        { stage: 'MOFU', goal: 'aeo_and_authority',        humanRequired: 
-true  }, 
-  'newsletter.md':          { stage: 'MOFU', goal: 'nurture_and_conversion',   humanRequired: 
-true  }, 
-  'aeo-article.md':         { stage: 'MOFU', goal: 'search_and_ai_citation',   humanRequired: 
-false }, 
-  'email-sequence.md':      { stage: 'BOFU', goal: 'conversion',               humanRequired: false 
-}, 
-  'pinterest-pins.md':      { stage: 'TOFU', goal: 'evergreen_discovery',      humanRequired: 
-false }, 
-  'threads-posts.md':       { stage: 'TOFU', goal: 'awareness',                humanRequired: false 
-}, 
-  'community-seeds.md':     { stage: 'TOFU', goal: 'dark_social_seeding',      humanRequired: 
-true  }, 
+  'youtube-short.md':       { stage: 'TOFU', goal: 'discovery_and_retention',  humanRequired:  false },
+  'youtube-long.md':        { stage: 'MOFU', goal: 'authority_and_depth',      humanRequired:  false },
+  'reddit-post.md':         { stage: 'TOFU', goal: 'community_trust',          humanRequired: true   },
+  'quora-answer.md':        { stage: 'MOFU', goal: 'aeo_and_authority',        humanRequired:  true  },
+  'newsletter.md':          { stage: 'MOFU', goal: 'nurture_and_conversion',   humanRequired:  true  },
+  'aeo-article.md':         { stage: 'MOFU', goal: 'search_and_ai_citation',   humanRequired:  false },
+  'email-sequence.md':      { stage: 'BOFU', goal: 'conversion',               humanRequired: false  },
+  'pinterest-pins.md':      { stage: 'TOFU', goal: 'evergreen_discovery',      humanRequired:  false },
+  'threads-posts.md':       { stage: 'TOFU', goal: 'awareness',                humanRequired: false  },
+  'community-seeds.md':     { stage: 'TOFU', goal: 'dark_social_seeding',      humanRequired:  true  },
 }; 
  
 async function main() { 
@@ -59,8 +46,7 @@ MOFU_target_pct: 35 };
   }; 
  
   for (const filename of files) { 
-    const rule       = PLATFORM_FUNNEL_MAP[filename] ?? { stage: 'TOFU', goal: 
-'awareness', humanRequired: false }; 
+    const rule       = PLATFORM_FUNNEL_MAP[filename] ?? { stage: 'TOFU', goal:  'awareness', humanRequired: false };
     const wordCount  = readText(`${campaignDir}/text/${filename}`).trim().split(/\s+/).length; 
  
     funnelMap.pieces.push({ 
@@ -86,16 +72,13 @@ MOFU_target_pct: 35 };
     const tofuCount = funnelMap.distribution.TOFU; 
  
     if (tofuPct < targets.TOFU_minimum_pct) { 
-      funnelMap.warnings.push(`TOFU only ${Math.round(tofuPct)}% — below 
-${targets.TOFU_minimum_pct}% minimum. Organic growth will stall.`); 
+      funnelMap.warnings.push(`TOFU only ${Math.round(tofuPct)}% — below  ${targets.TOFU_minimum_pct}% minimum. Organic growth will stall.`);
     } 
     if (bofuCount > tofuCount) { 
-      funnelMap.warnings.push('More BOFU than TOFU content — flip the ratio. You cannot 
-convert an audience you have not built.'); 
+      funnelMap.warnings.push('More BOFU than TOFU content — flip the ratio. You cannot  convert an audience you have not built.');
     } 
     if (funnelMap.distribution.MOFU === 0) { 
-      funnelMap.warnings.push('No MOFU content this week — add at least one credibility 
-piece (LinkedIn depth post, Quora answer, or AEO article).'); 
+      funnelMap.warnings.push('No MOFU content this week — add at least one credibility  piece (LinkedIn depth post, Quora answer, or AEO article).');
     } 
   } 
  
@@ -111,6 +94,3 @@ ${funnelMap.warnings.length}`);
 } 
  
 main(); 
-``` 
- 
----

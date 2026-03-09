@@ -35,8 +35,7 @@ export async function callModel(messages, model = MODELS.REASONING, maxTokens =
 2000, temperature = 0.7) { 
   const apiKey = process.env.OPENROUTER_API_KEY; 
   if (!apiKey) { 
-    console.error('[openrouter] OPENROUTER_API_KEY not set. Add it to GitHub Secrets or 
-.env'); 
+    console.error('[openrouter] OPENROUTER_API_KEY not set. Add it to GitHub Secrets or  .env');
     process.exit(1); 
   } 
  
@@ -92,8 +91,7 @@ export async function callModel(messages, model = MODELS.REASONING, maxTokens =
         console.error(`[openrouter] All ${MAX_RETRIES} attempts failed:`, err.message); 
         process.exit(1); 
       } 
-      console.log(`[openrouter] Network error (attempt ${attempt}): ${err.message} — 
-retrying`); 
+      console.log(`[openrouter] Network error (attempt ${attempt}): ${err.message} —  retrying`);
       await sleep(RETRY_DELAY_MS * attempt); 
     } 
   } 
@@ -151,6 +149,3 @@ export function parseJSON(text) {
 function sleep(ms) { 
   return new Promise(resolve => setTimeout(resolve, ms)); 
 } 
-``` 
- 
----

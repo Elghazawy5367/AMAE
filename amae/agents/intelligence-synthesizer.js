@@ -37,8 +37,7 @@ async function main() {
   // Handle first run with no copy ammunition yet 
   const copySection = copyAmmo 
     ? copyAmmo.slice(0, 4000) 
-    : `No copy ammunition available yet. Use the_desire section from product-dna.json as the 
-source of copy language.`; 
+    : `No copy ammunition available yet. Use the_desire section from product-dna.json as the  source of copy language.`;
  
   
   const competitorSection = competitorFails.slice(0, 800) || 'No competitor data this week.';
@@ -51,18 +50,15 @@ source of copy language.`;
   const objectionSection  = objectionMap.slice(0, 600) || 'No objection data this week.';
 
 const timingSection = timing.publish_now?.length 
-    ? `PUBLISH NOW: ${timing.publish_now.map(t => `"${t.topic}"`).join(' | ')}\nPREPARE 
-NEXT WEEK: ${timing.prepare_next_week?.map(t => `"${t.topic}"`).join(' | ') ?? 'none'}` 
+    ? `PUBLISH NOW: ${timing.publish_now.map(t => `"${t.topic}"`).join(' | ')}\nPREPARE  NEXT WEEK: ${timing.prepare_next_week?.map(t => `"${t.topic}"`).join(' | ') ?? 'none'}`
     : 'No timing windows identified this week.'; 
  
   const memorySection = insights.recommendation 
     ?? 'No performance data yet. Default to TOFU awareness content on primary platform.'; 
  
-  const prompt = `You are the intelligence synthesizer for an autonomous marketing system 
-called AMAE. 
+  const prompt = `You are the intelligence synthesizer for an autonomous marketing system  called AMAE.
  
-Your job: read this week's intelligence data and write a precise campaign brief. 
-Every claim must trace to the data provided. Never invent intelligence. 
+Your job: read this week's intelligence data and write a precise campaign brief.  Every claim must trace to the data provided. Never invent intelligence.
  
 ===PRODUCT=== 
 Name: ${product.name} 
@@ -72,8 +68,7 @@ What they fear most: ${desire.what_they_fear_most}
 What they are frustrated by: ${desire.what_they_are_frustrated_by} 
 Who they want to become: ${desire.who_they_want_to_become} 
  
-===THIS WEEK'S COPY AMMUNITION (real words from real people)=== 
-${copySection} 
+===THIS WEEK'S COPY AMMUNITION (real words from real people)===  ${copySection}
  
 ===TIMING WINDOWS=== 
 ${timingSection} 
@@ -109,8 +104,7 @@ Choose exactly one: Loss Aversion | Social Proof | Authority | FOMO | Identity |
 Why this lever this week: what in the data makes this the right choice? 
  
 **3. VERBATIM HOOK** (1 sentence — must come from copy ammunition) 
-The exact first sentence for this week's hero piece. 
-RULE: Must be taken or directly adapted from a Tier 1 quote above. Cannot be invented. 
+The exact first sentence for this week's hero piece.  RULE: Must be taken or directly adapted from a Tier 1 quote above. Cannot be invented.
 If no Tier 1 quotes exist: use the most emotionally resonant phrase from the_desire section. 
  
 **4. HERO PLATFORM** (1 platform + 1 reason) 
@@ -161,12 +155,3 @@ Write the brief now. Be specific. Under 500 words total.`;
 } 
  
 main(); 
-``` 
- 
---- 
- 
- 
-<!-- ═══════════════════════════════════════════════ 
-     CAMPAIGN ENGINE — Thursday 6am UTC 
-     Steps 1-8 of 13 
-═══════════════════════════════════════════════ -->

@@ -12,10 +12,8 @@ import { getCurrentWeek }                from '../lib/week-utils.js';
 async function main() { 
   const apiKey = process.env.IDEOGRAM_API_KEY; 
   if (!apiKey) { 
-    console.log('[image-generator.js] IDEOGRAM_API_KEY not set. Skipping image 
-generation.'); 
-    console.log('[image-generator.js] Add IDEOGRAM_API_KEY secret to enable actual 
-image generation.'); 
+    console.log('[image-generator.js] IDEOGRAM_API_KEY not set. Skipping image  generation.');
+    console.log('[image-generator.js] Add IDEOGRAM_API_KEY secret to enable actual  image generation.');
     return; 
   } 
  
@@ -63,11 +61,7 @@ image generation.');
   const failed    = results.filter(r => !r.success).length; 
  
   console.log(`[image-generator.js] Done. ${succeeded} succeeded, ${failed} failed.`); 
-  if (failed > 0) console.log('[image-generator.js] Failed images:', results.filter(r => 
-!r.success).map(r => r.filename)); 
+  if (failed > 0) console.log('[image-generator.js] Failed images:', results.filter(r =>  !r.success).map(r => r.filename));
 } 
  
 main(); 
-``` 
- 
----

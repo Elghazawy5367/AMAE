@@ -6,8 +6,7 @@
 const CLAUDE_API = 'https://api.anthropic.com/v1/messages'; 
  
 export const CLAUDE_MODELS = { 
-  SONNET:  'claude-sonnet-4-20250514',   // Synthesis, strategy, complex analysis 
-  HAIKU:   'claude-haiku-4-5-20251001',  // Fast parallel calls (4-persona strategy) 
+  SONNET:  'claude-sonnet-4-20250514',   // Synthesis, strategy, complex analysis  HAIKU:   'claude-haiku-4-5-20251001',  // Fast parallel calls (4-persona strategy)
 }; 
  
 async function callClaude(messages, model = CLAUDE_MODELS.HAIKU, maxTokens = 
@@ -91,6 +90,3 @@ export async function callSonnetWithThinking(userPrompt, thinkingBudget = 5000) 
   const data = await response.json(); 
   return data.content.map(b => b.text || '').filter(Boolean).join('\n'); 
 } 
-``` 
- 
----

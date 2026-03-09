@@ -1,7 +1,6 @@
 // === FILE: lib/hackernews-api.js ===
 // GAP-021 NOTE: Spec lists as hacker-news-api.js but all agents use hackernews-api.js (no hyphen). File name is correct.
-```javascript 
-// === FILE: lib/hackernews-api.js === 
+```javascript  // === FILE: lib/hackernews-api.js ===
 // Job: HN Algolia API wrapper — free, no auth, reliable 
 // Reads: nothing 
 // Writes: nothing 
@@ -22,8 +21,7 @@ const HN_BASE      = 'https://news.ycombinator.com';
  */ 
 export async function fetchHNTrending(minPoints = 50, hitsPerPage = 30) { 
   const url = 
-`${HN_ALGOLIA}/search_by_date?tags=story&numericFilters=points>${minPoints}&hitsPer
-Page=${hitsPerPage}`; 
+`${HN_ALGOLIA}/search_by_date?tags=story&numericFilters=points>${minPoints}&hitsPer Page=${hitsPerPage}`;
   console.log(`[hn-api] Fetching HN trending (minPoints=${minPoints}, 
 limit=${hitsPerPage})`); 
  
@@ -108,6 +106,3 @@ export async function fetchHNAskPosts(limit = 20) {
     return []; 
   } 
 } 
-``` 
- 
----

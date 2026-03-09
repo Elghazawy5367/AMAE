@@ -18,8 +18,7 @@ export async function generateVoiceover(text, options = {}) {
  
   console.log(`[elevenlabs-api.js] Generating voiceover: ${text.slice(0, 50)}...`); 
  
-  const response = await fetch(`${EL_API}/${voiceId}`, { 
-    method:  'POST', 
+  const response = await fetch(`${EL_API}/${voiceId}`, {  method:  'POST',
     headers: { 
       'xi-api-key':   apiKey, 
       'Content-Type': 'application/json', 
@@ -81,13 +80,9 @@ export async function getQuotaRemaining() {
   const apiKey = process.env.ELEVENLABS_API_KEY; 
   if (!apiKey) return null; 
  
-  const response = await fetch('https://api.elevenlabs.io/v1/user', { 
-    headers: { 'xi-api-key': apiKey }, 
+  const response = await fetch('https://api.elevenlabs.io/v1/user', {  headers: { 'xi-api-key': apiKey },
   }); 
   if (!response.ok) return null; 
   const data = await response.json(); 
   return data?.subscription?.character_limit - data?.subscription?.character_count; 
 } 
-``` 
- 
----

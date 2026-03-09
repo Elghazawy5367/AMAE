@@ -21,13 +21,11 @@ function markdownToHtml(markdown, meta = {}) {
     .replace(/\n\n/g, '</p><p>') 
     .replace(/^([^<].+)$/gm, '<p>$1</p>'); 
  
-  return `<!DOCTYPE html> 
-<html lang="en"> 
+  return `<!DOCTYPE html>  <html lang="en">
 <head> 
   <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>${meta.title ?? 'AMAE Blog'}</title> 
-  <meta name="description" content="${meta.description ?? ''}"> 
+  <title>${meta.title ?? 'AMAE Blog'}</title>  <meta name="description" content="${meta.description ?? ''}">
   <link rel="stylesheet" href="/css/blog.css"> 
   <!-- AEO: FAQ schema injected by aeo-optimizer.js after generation --> 
 </head> 
@@ -100,8 +98,7 @@ async function main() {
  
   // Update blog index 
   const allPosts = fs.readdirSync(blogDir).filter(f => f.endsWith('.html') && f !== 'index.html'); 
-  const indexHtml = `<!DOCTYPE html> 
-<html lang="en"> 
+  const indexHtml = `<!DOCTYPE html>  <html lang="en">
 <head> 
   <meta charset="UTF-8"> 
   <title>AMAE Blog — Marketing Intelligence</title> 
@@ -111,36 +108,14 @@ async function main() {
   <main> 
     <h1>AMAE Marketing Intelligence</h1> 
     <ul> 
-      ${allPosts.map(f => `<li><a href="/blog/${f}">${f.replace('.html', '').replace(/-/g, ' 
-')}</a></li>`).join('\n      ')} 
+      ${allPosts.map(f => `<li><a href="/blog/${f}">${f.replace('.html', '').replace(/-/g, '  ')}</a></li>`).join('\n      ')}
     </ul> 
   </main> 
 </body> 
 </html>`; 
  
   fs.writeFileSync(path.join(blogDir, 'index.html'), indexHtml); 
-  console.log(`[blog-deployer.js] Done. ${deployed} new articles deployed. Blog index 
-updated.`); 
+  console.log(`[blog-deployer.js] Done. ${deployed} new articles deployed. Blog index  updated.`);
 } 
  
 main(); 
-``` 
- 
---- 
- 
- 
- 
-# END OF PART 1 — Download as: AMAE_CLEAN_PART1.md 
-Tab 2 
-# AMAE CLEAN COMPLETE REPO — PART 2 of 4 
-# All Agents — Intelligence · Campaign · GitHub · Evolution · Distribution 
-# Files 43–100 of 169 
-# Source priority: Tab 4 > Tab 3 > Tab 2 > Tab 1 
-# Phase 2 corrections applied inline 
- 
---- 
- 
-<!-- ═══════════════════════════════════════════════ 
-     INTELLIGENCE LAYER — Tuesday 4am UTC 
-     7 agents · mines Reddit + HN + GitHub 
-═══════════════════════════════════════════════ -->

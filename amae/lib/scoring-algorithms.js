@@ -224,15 +224,3 @@ export function scoreRelevance(text, keywords) {
   const matched = keywords.filter(k => lower.includes(k.toLowerCase())).length; 
   return matched / keywords.length; 
 } 
-``` 
- 
----
-
-// Blue Ocean Score: identifies gaps in competitor coverage
-// Higher score = more underserved topic = more opportunity
-// GAP-017 FIX: Added per KB spec requirement
-export function scoreBlueOcean(topic, competitorCoverage, audienceDemand) {
-  const coverageGap = Math.max(0, 10 - (competitorCoverage ?? 0));
-  const demandScore = Math.min(10, audienceDemand ?? 5);
-  return Math.round((coverageGap * 0.6 + demandScore * 0.4) * 10) / 10;
-}

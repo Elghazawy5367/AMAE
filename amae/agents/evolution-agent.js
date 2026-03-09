@@ -24,8 +24,7 @@ async function findPendingIntelligence() {
   const pending = []; 
   for (const slug of slugs) { 
     const intel = readJSON(`intelligence/discovered/${slug}/intelligence.json`); 
-    if (intel?.status === 'pending_evolution') { 
-      pending.push({ slug, intel }); 
+    if (intel?.status === 'pending_evolution') {  pending.push({ slug, intel });
     } 
   } 
   return pending; 
@@ -39,8 +38,7 @@ async function generateUpgradePatch(intel) {
     return { success: false, reason: `Target file ${targetFile} not found in repo` }; 
   } 
  
-  const prompt = `You are upgrading a specific file in an autonomous marketing system 
-called AMAE. 
+  const prompt = `You are upgrading a specific file in an autonomous marketing system  called AMAE.
  
 INTELLIGENCE SOURCE: ${intel.repo} 
 CORE INSIGHT: ${intel.core_insight} 
@@ -101,19 +99,16 @@ async function main() {
 ${intel.risk} risk)`); 
  
     // Routing logic — what gets a PR vs what gets held 
-    if (intel.confidence === 'low') { 
-      discarded.push({ slug, intel, reason: 'Low confidence — insufficient evidence it works' }); 
+    if (intel.confidence === 'low') {  discarded.push({ slug, intel, reason: 'Low confidence — insufficient evidence it works' });
       continue; 
     } 
  
-    if (intel.risk === 'high') { 
-      discarded.push({ slug, intel, reason: 'High risk architecture change — requires manual 
+    if (intel.risk === 'high') {  discarded.push({ slug, intel, reason: 'High risk architecture change — requires manual
 implementation' }); 
       continue; 
     } 
  
-    if (intel.status === 'extraction_failed') { 
-      discarded.push({ slug, intel, reason: 'Extraction failed during twin-agent step' }); 
+    if (intel.status === 'extraction_failed') {  discarded.push({ slug, intel, reason: 'Extraction failed during twin-agent step' });
       continue; 
     } 
  
@@ -138,8 +133,7 @@ implementation' });
     for (const { slug, intel, patch } of prQueue) { 
       const prData = { 
         branch_name:   `evolution/${week}-${intel.insight_type}-${slug.slice(0, 20)}`, 
-        pr_title:      `Evolution ${week}: ${intel.insight_type.replace(/_/g, ' ')} — source: 
-${intel.repo}`, 
+        pr_title:      `Evolution ${week}: ${intel.insight_type.replace(/_/g, ' ')} — source:  ${intel.repo}`,
         pr_body: [ 
           `## Evolution PR — ${week}`, 
           '', 
@@ -162,8 +156,7 @@ ${intel.repo}`,
           '---', 
           '### Your Decision', 
           '- **Merge** → AMAE absorbs this intelligence', 
-          '- **Close** → Discarded. Add a comment explaining why so AMAE learns what NOT 
-to absorb.', 
+          '- **Close** → Discarded. Add a comment explaining why so AMAE learns what NOT  to absorb.',
           '', 
           '> This PR was filed automatically by evolution-agent.js', 
           '> AMAE cannot decide what it becomes. You merge or close.', 
@@ -203,30 +196,3 @@ discarded.`);
 } 
  
 main(); 
-``` 
- 
---- 
- 
- 
- 
-# END OF PART 2 — Download as: AMAE_CLEAN_PART2.md 
-Tab 3 
-# AMAE CLEAN COMPLETE REPO — PART 3 of 4 
-# Workflows · Issue Templates · All Prompts 
-# Files 86–133 of 169 
-# Source priority: Tab 4 > Tab 3 > Tab 2 > Tab 1 
-# Phase 2 corrections applied inline 
- 
---- 
- 
-<!-- ═══════════════════════════════════════════════ 
-     GITHUB ACTIONS WORKFLOWS 
-     CRITICAL RULES: 
-     - weekly-intelligence.yml: calls ALL 7 intelligence agents (Tab 4 corrected) 
-     - weekly-campaign.yml: calls ALL 13 steps including memory-parser first (Tab 4 
-corrected) 
-     - weekly-distribution.yml: SCHEDULED Friday posting (Tab 3 corrected) 
-     - weekly-evolution.yml: ESM-safe PR creation (Phase 2 Fix 4) 
-     - All campaign PRs: NEVER auto-merge 
-     - All evolution PRs: NEVER auto-merge 
-═══════════════════════════════════════════════ -->

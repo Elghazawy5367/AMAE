@@ -24,11 +24,7 @@ async function main() {
   } 
  
   console.log('[dist-youtube.js] YouTube upload requires completed HeyGen video.'); 
-  console.log('[dist-youtube.js] Download video from HeyGen dashboard and upload 
-manually, or re-run after video completion.'); 
+  console.log('[dist-youtube.js] Download video from HeyGen dashboard and upload  manually, or re-run after video completion.');
 } 
  
 main(); 
-``` 
- 
----

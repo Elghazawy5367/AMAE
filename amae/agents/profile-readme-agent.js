@@ -17,8 +17,7 @@ function buildDashboard(product, performance, insights, week) {
   const weeksRunning = performance?.weeks_running ?? 0; 
   const totalSignals = performance?.total_resonance_signals ?? 0; 
  
-  return `<!-- AMAE-DASHBOARD-START --> 
-## 📊 AMAE Live Dashboard 
+  return `<!-- AMAE-DASHBOARD-START -->  ## 📊 AMAE Live Dashboard
 *Auto-updated by AMAE every week · ${getTodayString()}* 
  
 | Metric | Value | 
@@ -49,8 +48,7 @@ async function main() {
   const dashboard   = buildDashboard(product, performance, insights, week); 
  
   // Replace existing dashboard block or append 
-  if (readme.includes('<!-- AMAE-DASHBOARD-START -->')) { 
-    readme = readme.replace( 
+  if (readme.includes('<!-- AMAE-DASHBOARD-START -->')) {  readme = readme.replace(
       /<!-- AMAE-DASHBOARD-START -->[\s\S]*?<!-- AMAE-DASHBOARD-END -->/, 
       dashboard 
     ); 
@@ -63,6 +61,3 @@ async function main() {
 } 
  
 main(); 
-``` 
- 
----

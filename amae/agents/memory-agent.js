@@ -18,8 +18,7 @@ async function main() {
   let distLog = { distributions: [] };
   try {
     const raw = readText('analytics/distribution-log.jsonl') ?? '';
-    distLog.distributions = raw.split('
-')
+    distLog.distributions = raw.split(' ')
       .filter(l => l.trim())
       .map(l => { try { return JSON.parse(l); } catch { return null; } })
       .filter(Boolean);
@@ -40,11 +39,9 @@ async function main() {
       top_performing_hooks:     [], 
       platforms_with_resonance: [], 
       recommendation:           weeksNoRes >= 6 
-        ? 'WARNING: 6+ weeks without resonance signals. The problem is NOT the content or 
-platform — it is the the_desire section of product-dna.json. The audience desire is not 
+        ? 'WARNING: 6+ weeks without resonance signals. The problem is NOT the content or  platform — it is the the_desire section of product-dna.json. The audience desire is not
 specific enough. Run the Desire Discovery Protocol: read 50 posts in your subreddits and 
-answer the 4 questions again from scratch.' 
-        : 'No performance data yet. Default: TOFU awareness content on primary platform. 
+answer the 4 questions again from scratch.'  : 'No performance data yet. Default: TOFU awareness content on primary platform.
 Focus on channeling the exact language in copy-ammunition.md.', 
     }; 
     writeJSON('memory/insights.json', starter); 
@@ -92,15 +89,13 @@ Rules:
 0.3); 
     const parsed   = parseJSON(response); 
  
-    writeJSON('memory/insights.json', { 
-      ...parsed, 
+    writeJSON('memory/insights.json', {  ...parsed,
       last_updated:  getTodayString(), 
       week:          getCurrentWeek(), 
       weeks_tracked: weeksTracked, 
     }); 
  
-    if (parsed.alert === 'desire_section_needs_revision') { 
-      console.log('[memory-agent] ALERT: 6+ weeks without resonance. product-dna.json 
+    if (parsed.alert === 'desire_section_needs_revision') {  console.log('[memory-agent] ALERT: 6+ weeks without resonance. product-dna.json
 the_desire section needs revision.'); 
     } 
  
@@ -113,6 +108,3 @@ parse_error: err.message });
 } 
  
 main(); 
-``` 
- 
----

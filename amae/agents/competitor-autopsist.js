@@ -26,8 +26,7 @@ async function fetchCompetitorIssues(competitors) {
         const text = (issue.title + ' ' + (issue.body ?? '')).toLowerCase(); 
         return ['bug', 'broken', 'can\'t', 'cannot', 'missing', 'wish', 'please add', 
           'slow', 'crash', 'error', 'doesn\'t work', 'not working', 'support', 
-          'pricing', 'expensive', 'too complex', 'documentation', 'confusing'].some(kw => 
-text.includes(kw)); 
+          'pricing', 'expensive', 'too complex', 'documentation', 'confusing'].some(kw =>  text.includes(kw));
       }); 
  
       allIssues.push({ 
@@ -60,12 +59,10 @@ async function main() {
   const product = dna.products[dna.active_product]; 
  
   if (!product?.competitors?.length) { 
-    console.log('[competitor-autopsist.js] No competitors configured in product-dna.json. 
-Skipping.'); 
+    console.log('[competitor-autopsist.js] No competitors configured in product-dna.json.  Skipping.');
     ensureDir('intelligence/weekly'); 
     writeFile('intelligence/weekly/competitor-failures.md', 
-      `# Competitor Failure Intelligence — ${getCurrentWeek()}\n\n_No competitors 
-configured. Add competitor repos to config/product-dna.json._\n`); 
+      `# Competitor Failure Intelligence — ${getCurrentWeek()}\n\n_No competitors  configured. Add competitor repos to config/product-dna.json._\n`);
     return; 
   } 
  
@@ -120,16 +117,14 @@ Generated: ${getTodayString()}
  
 ## COPY AMMUNITION 
  
-${data.competitor_failures?.map(f => `### ${f.competitor}: "${f.verbatim_complaint}" 
-- Evidence count: ${f.evidence_count} 
+${data.competitor_failures?.map(f => `### ${f.competitor}: "${f.verbatim_complaint}"  - Evidence count: ${f.evidence_count}
 - Failure type: ${f.failure_category} 
 - Your copy angle: ${f.your_copy_angle} 
 - Use in: ${f.content_use_cases?.join(', ')}`).join('\n\n') ?? '_No data_'} 
  
 ## OBJECTION PRE-EMPTION MAP 
  
-${data.objection_preemption_map?.map(o => `**When they say:** "${o.objection}" 
-**Your angle:** ${o.response_angle} 
+${data.objection_preemption_map?.map(o => `**When they say:** "${o.objection}"  **Your angle:** ${o.response_angle}
 **Content type:** ${o.content_type}`).join('\n\n') ?? '_No objections mapped_'} 
  
 ## COPY-READY SENTENCES 
@@ -143,6 +138,3 @@ ${data.copy_ready_sentences?.map(s => `**${s.use}:** "${s.sentence}"`).join('\n'
 } 
  
 main(); 
-``` 
- 
----

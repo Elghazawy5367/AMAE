@@ -21,8 +21,7 @@ async function findRelevantAwesomeLists(category, keywords) {
     try { 
       const repos = await searchRepos(query, 'stars', 10); 
       const filtered = repos.filter(r => 
-        r.name.startsWith('awesome') && 
-        r.stargazers_count > 200 && 
+        r.name.startsWith('awesome') &&  r.stargazers_count > 200 &&
         !r.archived && 
         r.pushed_at > new Date(Date.now() - 365 * 24 * 3600000).toISOString() 
       ); 
@@ -49,8 +48,7 @@ Awesome list description: ${repo.description}
  
 Rules for awesome list entries: 
 - Format: [Product Name](URL) — One sentence description 
-- Description: what it does, not why it's good 
-- Under 120 characters total 
+- Description: what it does, not why it's good  - Under 120 characters total
 - No hype words (revolutionary, amazing, powerful, best) 
 - Specific: "Generates weekly marketing campaigns from Reddit audience data" 
  
@@ -82,8 +80,7 @@ async function main() {
   for (const repo of lists) { 
     const entry = await draftPRContent(product, repo); 
  
-    const draft = `# Awesome List PR Draft 
-List: ${repo.full_name} (${repo.stargazers_count} ⭐) 
+    const draft = `# Awesome List PR Draft  List: ${repo.full_name} (${repo.stargazers_count} ⭐)
 URL: https://github.com/${repo.full_name} 
  
 ## Entry to add: 
@@ -97,10 +94,8 @@ ${entry.trim()}
 5. PR description: brief explanation of what the product does 
  
 ## Notes: 
-- Some awesome list maintainers are responsive, some aren't 
-- Don't spam multiple lists at once — one per week 
-- If your PR isn't merged in 2 weeks, move on 
-`; 
+- Some awesome list maintainers are responsive, some aren't  - Don't spam multiple lists at once — one per week
+- If your PR isn't merged in 2 weeks, move on  `;
  
     const filename = repo.full_name.replace('/', '-') + '.md'; 
     writeFile(`${outputDir}/${filename}`, draft); 
@@ -111,6 +106,3 @@ ${entry.trim()}
 } 
  
 main(); 
-``` 
- 
----

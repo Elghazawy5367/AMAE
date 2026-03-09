@@ -18,13 +18,9 @@ async function main() {
   const scripts = readText(`campaigns/${week}/text/tiktok-scripts.md`); 
   if (scripts) { 
     writeFile(`campaigns/${week}/TIKTOK_MANUAL_RECORD.md`, 
-      `# TikTok — Record and Post Manually\n\nScripts ready. Record video using these 
-scripts, then upload via TikTok app.\n\n${scripts}`); 
+      `# TikTok — Record and Post Manually\n\nScripts ready. Record video using these  scripts, then upload via TikTok app.\n\n${scripts}`);
     console.log('[dist-tiktok.js] TikTok scripts flagged for manual recording.'); 
   } 
 } 
  
 main(); 
-``` 
- 
----

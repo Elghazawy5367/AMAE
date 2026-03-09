@@ -9,20 +9,17 @@ const THREADS_API = 'https://graph.threads.net/v1.0';
  
 async function createThreadsPost(token, userId, text) { 
   // Step 1: Create media container 
-  const containerRes = await fetch(`${THREADS_API}/${userId}/threads`, { 
-    method:  'POST', 
+  const containerRes = await fetch(`${THREADS_API}/${userId}/threads`, {  method:  'POST',
     headers: { 'Content-Type': 'application/json' }, 
     body:    JSON.stringify({ text, media_type: 'TEXT', access_token: token }), 
   }); 
   const container = await containerRes.json(); 
-  if (!container.id) throw new Error(`[dist-threads.js] Container creation failed: 
-${JSON.stringify(container)}`); 
+  if (!container.id) throw new Error(`[dist-threads.js] Container creation failed:  ${JSON.stringify(container)}`);
  
   await new Promise(r => setTimeout(r, 30000)); // Threads requires 30s wait 
  
   // Step 2: Publish 
-  const publishRes = await fetch(`${THREADS_API}/${userId}/threads_publish`, { 
-    method:  'POST', 
+  const publishRes = await fetch(`${THREADS_API}/${userId}/threads_publish`, {  method:  'POST',
     headers: { 'Content-Type': 'application/json' }, 
     body:    JSON.stringify({ creation_id: container.id, access_token: token }), 
   }); 
@@ -62,6 +59,3 @@ async function main() {
 } 
  
 main(); 
-``` 
- 
----

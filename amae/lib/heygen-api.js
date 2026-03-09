@@ -45,8 +45,7 @@ export async function submitVideoJob(options) {
     test:    options.test    ?? false, 
   }; 
  
-  const response = await fetch(`${HEYGEN_API}/video/generate`, { 
-    method:  'POST', 
+  const response = await fetch(`${HEYGEN_API}/video/generate`, {  method:  'POST',
     headers: { 
       'X-Api-Key':    apiKey, 
       'Content-Type': 'application/json', 
@@ -65,8 +64,7 @@ export async function submitVideoJob(options) {
  
 export async function getVideoStatus(videoId) { 
   const apiKey = process.env.HEYGEN_API_KEY; 
-  const response = await fetch(`${HEYGEN_API}/video/${videoId}`, { 
-    headers: { 'X-Api-Key': apiKey }, 
+  const response = await fetch(`${HEYGEN_API}/video/${videoId}`, {  headers: { 'X-Api-Key': apiKey },
   }); 
   if (!response.ok) return null; 
   const data = await response.json(); 
@@ -81,8 +79,7 @@ export async function submitAllJobs(jobSpecs, jobsFile =
   for (const spec of jobSpecs) { 
     try { 
       const videoId = await submitVideoJob(spec); 
-      jobs.push({ jobName: spec.jobName, videoId, status: 'submitted', submittedAt: new 
-Date().toISOString() }); 
+      jobs.push({ jobName: spec.jobName, videoId, status: 'submitted', submittedAt: new  Date().toISOString() });
       console.log(`[heygen-api.js] Job submitted: ${spec.jobName} → ${videoId}`); 
       await new Promise(r => setTimeout(r, 2000)); // Throttle submissions 
     } catch (err) { 
@@ -94,6 +91,3 @@ Date().toISOString() });
   writeJSON(jobsFile, { submitted_at: new Date().toISOString(), jobs }); 
   return jobs; 
 } 
-``` 
- 
----

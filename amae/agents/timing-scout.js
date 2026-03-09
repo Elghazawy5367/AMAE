@@ -52,8 +52,7 @@ config.hackernews.hits_per_page ?? 30);
     const filtered = posts.filter(p => p.score >= 15 && p.num_comments >= 3); 
     risingPosts.push(...filtered); 
   } 
-  console.log(`[timing-scout] Reddit rising: ${risingPosts.length} posts across 
-${Math.min(subreddits.length, 4)} subreddits`); 
+  console.log(`[timing-scout] Reddit rising: ${risingPosts.length} posts across  ${Math.min(subreddits.length, 4)} subreddits`);
  
   // ── Classify into buckets 
 ───────────────────────────────────────────────────── 
@@ -81,8 +80,7 @@ ${Math.min(subreddits.length, 4)} subreddits`);
   for (const post of risingPosts) { 
     const velocity   = scoreTrendVelocity(post.score, post.age_hours); 
     const trendClass = classifyTrend(velocity); 
-    if (trendClass === 'publish_now' || trendClass === 'prepare_next_week') { 
-      buckets[trendClass].push({ 
+    if (trendClass === 'publish_now' || trendClass === 'prepare_next_week') {  buckets[trendClass].push({
         topic:       post.title, 
         velocity:    velocity, 
         points:      post.score, 
@@ -135,6 +133,3 @@ function deriveAngle(title, keywords) {
 } 
  
 main(); 
-``` 
- 
----

@@ -24,8 +24,7 @@ export async function generateImage(prompt, options = {}) {
     body: JSON.stringify({ 
       image_request: { 
         prompt:          prompt, 
-        negative_prompt: options.negative_prompt ?? 'blurry, low quality, watermark, text 
-errors, distorted text', 
+        negative_prompt: options.negative_prompt ?? 'blurry, low quality, watermark, text  errors, distorted text',
         aspect_ratio:    options.aspect_ratio ?? 'ASPECT_1_1', 
         model:           'V_2_TURBO', 
         style_type:      options.style_type ?? 'DESIGN', 
@@ -87,6 +86,3 @@ export async function generateAllImages(specs) {
  
   return results; 
 } 
-``` 
- 
----

@@ -1,6 +1,5 @@
 // === FILE: agents/memory-parser.js === 
-// Job: Parse founder's manual resonance-log.md into memory/performance.json 
-// This is the BRIDGE between human observation and system memory. 
+// Job: Parse founder's manual resonance-log.md into memory/performance.json  // This is the BRIDGE between human observation and system memory.
 // Without this, memory-agent.js reads stale data and AMAE never learns. 
 // 
 // Reads:  analytics/resonance-log.md  (founder manually updates this) 
@@ -55,8 +54,7 @@ function parseResonanceLog(logContent) {
  
 function buildPerformanceJSON(signals, existing) { 
   const perf = existing ?? { 
-    _description:               'Weekly performance metrics. Auto-populated by memory-parser.js 
-from resonance-log.md.', 
+    _description:               'Weekly performance metrics. Auto-populated by memory-parser.js  from resonance-log.md.',
     weeks_running:              0, 
     weeks_without_resonance:    0, 
     total_resonance_signals:    0, 
@@ -116,8 +114,7 @@ from resonance-log.md.',
  
 function buildHookPerformanceJSON(signals, existing) { 
   const hp = existing ?? { 
-    _description: 'Which hooks generated resonance signals. Auto-populated by 
-memory-parser.js.', 
+    _description: 'Which hooks generated resonance signals. Auto-populated by  memory-parser.js.',
     best_performing: [], 
     by_platform:     {}, 
   }; 
@@ -152,8 +149,7 @@ async function main() {
   const logPath  = 'analytics/resonance-log.md'; 
   const logContent = readText(logPath); 
  
-  if (!logContent || logContent.trim() === '' || logContent.includes('No signals logged yet')) { 
-    console.log('[memory-parser.js] No resonance data yet. Initialising empty 
+  if (!logContent || logContent.trim() === '' || logContent.includes('No signals logged yet')) {  console.log('[memory-parser.js] No resonance data yet. Initialising empty
 performance.json.'); 
     const empty = { 
       _description:            'Weekly performance metrics. Updated by memory-parser.js.', 
@@ -167,8 +163,7 @@ performance.json.');
       last_parsed:             getTodayString(), 
     }; 
     writeJSON('memory/performance.json', empty); 
-    console.log('[memory-parser.js] Wrote empty performance.json. Log resonance signals to 
-analytics/resonance-log.md to activate learning.'); 
+    console.log('[memory-parser.js] Wrote empty performance.json. Log resonance signals to  analytics/resonance-log.md to activate learning.');
     return; 
   } 
  
@@ -191,13 +186,9 @@ analytics/resonance-log.md to activate learning.');
   console.log(`  Best platform: ${performance.best_platform ?? 'none yet'}`); 
  
   if (performance.weeks_without_resonance >= 6) { 
-    console.log('[memory-parser.js] WARNING: 6+ weeks without resonance. Run the Desire 
-Discovery Protocol. product-dna.json the_desire section needs revision.'); 
+    console.log('[memory-parser.js] WARNING: 6+ weeks without resonance. Run the Desire  Discovery Protocol. product-dna.json the_desire section needs revision.');
   } 
 } 
  
 main().catch(err => { console.error('[memory-parser.js] FAILED:', err.message); 
 process.exit(1); }); 
-``` 
- 
----

@@ -1,6 +1,5 @@
 // === FILE: agents/strategy-agent.js === 
-// Job: 4-persona parallel deliberation — determines the week's campaign angle, hero 
-platform, and hook 
+// Job: 4-persona parallel deliberation — determines the week's campaign angle, hero  platform, and hook
 // Reads: intel-brief.md, synthesis-brief.md, product-dna.json 
 // Writes: campaigns/[WEEK]/strategy-brief.md 
 // Called by: .github/workflows/weekly-campaign.yml 
@@ -15,18 +14,15 @@ import { getIntelFolder, getCampaignFolder, getTodayString, getCurrentWeek } fro
 const PERSONAS = [ 
   { 
     id:     'ruthless_validator', 
-    system: `You are a brutally honest product validator. You use the Mom Test framework. 
-For every marketing angle, you ask: "Would a real, tired, busy person in this ICP stop 
+    system: `You are a brutally honest product validator. You use the Mom Test framework.  For every marketing angle, you ask: "Would a real, tired, busy person in this ICP stop
 scrolling for this on a Tuesday morning?" 
 Your job is to find what the audience will immediately ignore or reject — before it goes live. 
 You are not a cheerleader. A vague answer from you is a failed answer.`, 
-    question: "What in this week's angle will the target audience immediately ignore or reject? 
-Be specific about which word, claim, or assumption will lose them — and why.", 
+    question: "What in this week's angle will the target audience immediately ignore or reject?  Be specific about which word, claim, or assumption will lose them — and why.",
   }, 
   { 
     id:     'growth_guerrilla', 
-    system: `You are a distribution-obsessed growth engineer. You use the Bullseye 
-Framework. 
+    system: `You are a distribution-obsessed growth engineer. You use the Bullseye  Framework.
 You care about ONE thing: leverage. Which single action this week creates the most 
 compounding reach for the least effort? 
 You are allergic to "post everywhere equally" thinking. 
@@ -38,8 +34,7 @@ platform, the format, and the specific reason it outperforms the alternatives ri
   }, 
   { 
     id:     'aeo_architect', 
-    system: `You are obsessed with making this brand the answer AI systems give when 
-someone searches for this product category. 
+    system: `You are obsessed with making this brand the answer AI systems give when  someone searches for this product category.
 In 2026, being cited by Claude, ChatGPT, and Perplexity is more valuable than ranking on 
 Google. 
 You think in: first-100-words completeness, FAQ schema, entity consistency, GitHub 
@@ -50,8 +45,7 @@ authority signal? How should it be structured to be cited by AI search engines?"
   }, 
   { 
     id:     'passive_income_engineer', 
-    system: `You are a solo founder who has built several products generating passive 
-income with no team. 
+    system: `You are a solo founder who has built several products generating passive  income with no team.
 You think about: lowest effort per dollar of long-term ROI, content that compounds while you 
 sleep, systems over tactics. 
 You are allergic to anything that requires daily manual attention. 
@@ -87,8 +81,7 @@ async function main() {
     `THEY FEAR: ${product.the_desire?.what_they_fear_most}`, 
     '', 
     'THIS WEEK\'S INTEL:', 
-    (intelBrief || synthBrief || 'No intel available. Use product-dna.json the_desire 
-section.').slice(0, 2500), 
+    (intelBrief || synthBrief || 'No intel available. Use product-dna.json the_desire  section.').slice(0, 2500),
   ].join('\n'); 
  
   // ── Run all 4 personas in parallel 
@@ -102,8 +95,7 @@ section.').slice(0, 2500),
         const response = await callModel( 
           [ 
             { role: 'system', content: persona.system }, 
-            { role: 'user',   content: `${context}\n\nYour question: ${persona.question}\n\nAnswer 
-in 150 words max. Be specific. No generic advice.` }, 
+            { role: 'user',   content: `${context}\n\nYour question: ${persona.question}\n\nAnswer  in 150 words max. Be specific. No generic advice.` },
           ], 
           MODELS.FAST, 
           600, 
@@ -118,8 +110,7 @@ in 150 words max. Be specific. No generic advice.` },
   ); 
  
   const successfulPersonas = personaResults.filter(r => r.success); 
-  console.log(`[strategy-agent] ${successfulPersonas.length}/4 personas completed. Running 
-synthesis...`); 
+  console.log(`[strategy-agent] ${successfulPersonas.length}/4 personas completed. Running  synthesis...`);
  
   // ── Synthesis: Ruthless Judge pass 
 ───────────────────────────────────────── 
@@ -180,6 +171,3 @@ Under 250 words. Specific, not generic.`;
 } 
  
 main(); 
-``` 
- 
----

@@ -22,6 +22,3 @@ async function main() {
 } 
  
 main(); 
-``` 
- 
----
