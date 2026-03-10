@@ -1,84 +1,62 @@
-{ 
-  "_version": "v1", 
-  "_note": "Controls what the Intelligence Layer mines every Tuesday. Match subreddits and 
-keywords to your actual ICP — not generic marketing communities.", 
- 
-  "reddit": { 
-    "subreddits": [ 
-      "sideproject", 
-      "indiehackers", 
-      "SaaS", 
-      "startups", 
-      "entrepreneur" 
-    ], 
-    "_subreddits_note": "Copy from product-dna.json icp.subreddits. Without r/ prefix.", 
- 
-    "sorts": ["hot", "rising"], 
-    "_sorts_note": "'rising' catches emerging conversations before they peak. Always include it 
-alongside 'hot'.", 
- 
-    "limit_per_sub": 25, 
-    "min_buying_intent_score": 2.0, 
-    "_intent_note": "Posts scoring below this on the buying intent algorithm are excluded. 
-Lower = more results, lower quality.", 
- 
-    "min_urgency_score": 15, 
-    "_urgency_note": "Posts below this urgency score are excluded.", 
- 
-    "min_post_score": 10, 
-    "_score_note": "Minimum Reddit score (upvotes - downvotes). Filters out very 
-low-engagement posts." 
-  }, 
- 
-  "hackernews": { 
-    "min_points": 50, 
-    "hits_per_page": 30, 
-    "relevance_keywords": [ 
-      "marketing", "growth", "founder", "saas", "content", "audience", 
-      "solo", "indie", "launch", "startup", "product" 
-    ], 
-    "_keywords_note": "HN stories are filtered by these keywords for relevance to your 
-product category." 
-  }, 
- 
-  "competitors": [ 
-    { 
-      "name": "COMPETITOR_A", 
-      "github_repo": "org/repo", 
-      "_note": "GitHub Issues on this repo are mined weekly for failure patterns that become 
-your copy angles." 
-    } 
-  ], 
- 
-  "pain_signal_keywords": [ 
-    "takes too long", "manual process", "wish there was", "frustrated with", 
-    "how do you even", "does anyone else", "tired of", "hate that" 
-  ], 
-  "_pain_note": "Extra keywords that supplement the scoring algorithm. Add product-specific 
-pain language from your subreddits.", 
- 
-  "buying_signal_keywords": [ 
-    "looking for a tool", "any recommendations", "what do you use for", 
-    "switched from", "just tried", "will pay for" 
-  ], 
-  "_buying_note": "Strong buying intent signals that boost a post's score when found." ,
-
-  "competitor_repos": [
-    "_instructions": "GitHub owner/repo paths. competitor-autopsist mines their Issues for failure patterns. e.g. 'someorg/someproduct'",
-    "PLACEHOLDER_ORG/PLACEHOLDER_REPO": "Replace with real competitor GitHub repos"
+{
+  "_version": "v1",
+  "_note": "Controls what the Intelligence Layer mines every Tuesday. Match subreddits and keywords to your actual ICP — not generic marketing communities.",
+  "reddit": {
+    "subreddits": [
+      "sideproject",
+      "indiehackers",
+      "SaaS",
+      "startups",
+      "entrepreneur"
+    ],
+    "_subreddits_note": "Copy from product-dna.json icp.subreddits. Without r/ prefix.",
+    "sorts": ["hot", "rising"],
+    "_sorts_note": "'rising' catches emerging conversations before they peak. Always include it alongside 'hot'.",
+    "limit_per_sub": 25,
+    "min_buying_intent_score": 2.0,
+    "_intent_note": "Posts scoring below this on the buying intent algorithm are excluded. Lower = more results, lower quality.",
+    "min_urgency_score": 15,
+    "_urgency_note": "Posts below this urgency score are excluded.",
+    "min_post_score": 10,
+    "_score_note": "Minimum Reddit score (upvotes - downvotes). Filters out very low-engagement posts."
+  },
+  "hackernews": {
+    "min_points": 50,
+    "hits_per_page": 30,
+    "relevance_keywords": [
+      "marketing", "growth", "founder", "saas", "content", "audience",
+      "solo", "indie", "launch", "startup", "product"
+    ],
+    "_keywords_note": "HN stories are filtered by these keywords for relevance to your product category."
+  },
+  "competitors": [
+    {
+      "name": "COMPETITOR_A",
+      "github_repo": "org/repo",
+      "_note": "GitHub Issues on this repo are mined weekly for failure patterns that become your copy angles."
+    }
   ],
-
+  "pain_signal_keywords": [
+    "takes too long", "manual process", "wish there was", "frustrated with",
+    "how do you even", "does anyone else", "tired of", "hate that"
+  ],
+  "_pain_note": "Extra keywords that supplement the scoring algorithm. Add product-specific pain language from your subreddits.",
+  "buying_signal_keywords": [
+    "looking for a tool", "any recommendations", "what do you use for",
+    "switched from", "just tried", "will pay for"
+  ],
+  "_buying_note": "Strong buying intent signals that boost a post's score when found.",
+  "competitor_repos": [
+    "PLACEHOLDER_ORG/PLACEHOLDER_REPO"
+  ],
+  "_competitor_repos_note": "GitHub owner/repo paths. competitor-autopsist mines their Issues for failure patterns. e.g. 'someorg/someproduct'",
   "seo_keywords": [
-    "_instructions": "Primary SEO keywords for AEO blog post optimization and citation-tracker.js. Think: what does your ICP type into Google?",
     "PLACEHOLDER_KEYWORD_1",
     "PLACEHOLDER_KEYWORD_2"
   ],
-
+  "_seo_keywords_note": "Primary SEO keywords for AEO blog post optimization and citation-tracker.js. Think: what does your ICP type into Google?",
   "hn_keywords": [
-    "marketing", "growth", "founder", "saas", "content", "solo", "indie", "launch", "automation",
-    "_instructions": "Keywords for Hacker News mining. Also duplicated from hackernews.relevance_keywords for direct agent access."
-  ]
-} 
-``` 
- 
----
+    "marketing", "growth", "founder", "saas", "content", "solo", "indie", "launch", "automation"
+  ],
+  "_hn_keywords_note": "Keywords for Hacker News mining. Also duplicated from hackernews.relevance_keywords for direct agent access."
+}
