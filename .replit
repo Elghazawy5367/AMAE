@@ -27,4 +27,4 @@ outputType = "console"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd /home/runner/workspace/amae && npm run dev"
+args = "npm run dev"
