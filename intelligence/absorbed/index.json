@@ -1,5 +1,9 @@
-{
-  "_version": "v1",
-  "_note": "Index of GitHub repos whose intelligence has been absorbed into AMAE.  Maintained by evolution-agent.js.",
-  "repos": []
-}
+{ 
+  "_version": "v1", 
+  "_note": "Index of GitHub repos whose intelligence has been absorbed into AMAE. 
+Maintained by evolution-agent.js.", 
+  "repos": [] 
+} 
+``` 
+ 
+---

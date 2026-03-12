@@ -1,1 +1,6 @@
-{"_note": "One JSON object per line. Each line = one campaign distribution event. Written by on-pr-merge-distribute.yml."}
+```jsonl 
+{"_note": "One JSON object per line. Each line = one campaign distribution event. Written by 
+on-pr-merge-distribute.yml."} 
+``` 
+ 
+---

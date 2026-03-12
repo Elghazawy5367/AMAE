@@ -2,9 +2,11 @@
   "_version": "v1",
   "_note": "Curated repos and builders AMAE monitors weekly via scout-agent.js. These are always checked regardless of star velocity.",
   "elite_repos": [
+    "_instructions": "GitHub owner/repo paths producing high-quality marketing/growth intelligence. Add repos you learn from.",
     "PLACEHOLDER_ORG/PLACEHOLDER_REPO"
   ],
   "elite_builders": [
+    "_instructions": "Individual GitHub usernames whose new repos should always be reviewed.",
     "PLACEHOLDER_GITHUB_USERNAME"
   ],
   "topics": [

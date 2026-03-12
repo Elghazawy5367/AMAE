@@ -3,14 +3,14 @@
 // Reads: campaigns/[WEEK]/text/aeo-article-cluster.md 
 // Calls: lib/blog-deployer.js 
 // Called by: agents/distributor.js on PR merge 
-// 
+ 
 import { execSync } from 'child_process'; 
 import { readText, writeFile } from '../lib/file-utils.js'; 
 import { getCurrentWeek }       from '../lib/week-utils.js'; 
-// 
+ 
 async function main() { 
   console.log('[dist-github.js] Deploying blog content to docs/...'); 
-// 
+ 
   try { 
     // blog-deployer.js handles the docs/ copy 
     execSync('node lib/blog-deployer.js', { stdio: 'inherit' }); 
@@ -20,5 +20,8 @@ async function main() {
     process.exit(1); 
   } 
 } 
-// 
+ 
 main(); 
+``` 
+ 
+---
