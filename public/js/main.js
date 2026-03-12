@@ -87,13 +87,4 @@ badge-blue">${h.platform}</span></div>`
 hooksSection; 
 } 
  
-renderDashboard(); 
-``` 
- 
---- 
- 
- 
-<!-- ═══════════════════════════════════════════════ 
-     DASHBOARD — src/dashboard/ 
-     Local monitoring UI for campaign status 
-═══════════════════════════════════════════════ -->
+renderDashboard();

@@ -17,10 +17,10 @@
     "test:openrouter": "node --input-type=module -e \"import { callModel, MODELS } from './lib/openrouter.js'; callModel([{role:'user',content:'reply with: working'}], MODELS.FAST, 50).then(console.log);\"",
     "test:ideogram": "node --input-type=module -e \"import { generateImage } from './lib/ideogram-api.js'; generateImage('A simple test image', '1:1').then(r => console.log('Ideogram OK:', r?.url ?? 'no url'));\"",
     "check": "node --check agents/*.js lib/*.js",
-    "dev": "node --env-file=.env agents/copy-excavator.js"
+    "dev": "node --env-file=.env agents/copy-excavator.js",
+    "start": "node server.js"
   },
   "dependencies": {
-    "dotenv": "^16.3.1"
-  },
-  "devDependencies": {}
+    "dotenv": "^16.6.1"
+  }
 }
